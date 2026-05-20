@@ -45,7 +45,7 @@
             border: 1px solid var(--gold); pointer-events: none;
         }
 
-        header { text-align: center; margin-bottom: 25px; }
+        header { text-align: center; margin-bottom: 20px; }
         
         .back-link {
             display: inline-block;
@@ -53,7 +53,7 @@
             text-decoration: none;
             font-weight: bold;
             font-size: 1.05rem;
-            margin-bottom: 15px;
+            margin-bottom: 10px;
         }
 
         h1 {
@@ -69,7 +69,7 @@
             font-size: 1.15rem;
             text-align: center;
             max-width: 90%;
-            margin: 0 auto 20px auto;
+            margin: 0 auto 15px auto;
         }
 
         .section-title {
@@ -77,25 +77,24 @@
             font-size: 1.2rem;
             border-bottom: 1px solid var(--gold);
             padding-bottom: 3px;
-            margin: 20px 0 15px 0;
+            margin: 15px 0 12px 0;
             text-transform: uppercase;
             letter-spacing: 0.5px;
             font-weight: bold;
         }
 
-        /* Sponsor Tier Layout */
         .tier-container {
             display: flex;
             flex-direction: column;
-            gap: 15px;
-            margin-bottom: 25px;
+            gap: 12px;
+            margin-bottom: 20px;
         }
 
         .tier-card {
             background-color: #fbfbfa;
             border: 1px solid #e2ded5;
             border-left: 5px solid var(--gold);
-            padding: 15px;
+            padding: 12px 15px;
             border-radius: 4px;
             text-align: left;
         }
@@ -104,28 +103,34 @@
             display: flex;
             justify-content: space-between;
             align-items: baseline;
-            margin-bottom: 5px;
+            margin-bottom: 4px;
         }
 
         .tier-name {
-            font-size: 1.3rem;
+            font-size: 1.25rem;
             font-weight: bold;
             color: var(--terracotta);
         }
 
         .tier-price {
-            font-size: 1.3rem;
+            font-size: 1.25rem;
             font-weight: bold;
             color: var(--dark-charcoal);
         }
 
         .tier-details {
             font-size: 1.05rem;
-            color: #555;
-            padding-left: 5px;
+            color: #444;
         }
 
-        /* Form Design */
+        .item-list-preview {
+            font-size: 0.95rem;
+            color: #666;
+            margin-top: 5px;
+            padding-left: 15px;
+            list-style-type: circle;
+        }
+
         .rsvp-form-container {
             background-color: var(--terracotta);
             color: var(--cream);
@@ -171,6 +176,7 @@
             border-radius: 4px;
             font-size: 0.95rem;
             font-family: inherit;
+            width: 100%;
         }
 
         .btn-submit {
@@ -196,7 +202,7 @@
     <div class="invitation-card">
         <div>
             <header>
-                <a href="index.html" class="back-link">&larr; Back to Invitation</a>
+                <a href="index.html" class="back-link">&larr; Return to Main Invitation</a>
                 <h1>Sponsorship Opportunities</h1>
                 <p style="font-size: 1.1rem; font-weight: bold; color: var(--gold); text-transform: uppercase; letter-spacing: 1px;">
                     9th Annual Fall Kickoff &bull; October 3rd, 2026
@@ -204,67 +210,96 @@
             </header>
 
             <p class="intro-p">
-                Our annual Fall Kickoff brings together neighborhood families, friends, and local businesses for a memorable day. Partner with us to feature your business while helping keep our fireworks, live band, and family events completely free for everyone!
+                Help us keep our fireworks, live music, and family activities completely free for everyone! Select an open event feature below to proudly anchor your business or family name to the neighborhood festivities.
             </p>
 
-            <div class="section-title">✨ Available Sponsorship Levels</div>
+            <div class="section-title">✨ Sponsorship Levels & Available Slots</div>
             
             <div class="tier-container">
-                <div class="tier-card" style="border-left-color: #b58230;">
+                <div class="tier-card" style="border-left-color: var(--gold);">
                     <div class="tier-header">
-                        <span class="tier-name">🟤 Bronze Sponsor</span>
-                        <span class="tier-price">$150</span>
+                        <span class="tier-name">🌟 Premier Event Partner</span>
+                        <span class="tier-price">$750</span>
                     </div>
-                    <p class="tier-details">Includes your family or business name listed prominently on our event sponsor board at the welcome entrance.</p>
+                    <p class="tier-details"><strong>Premium Perks:</strong> Primary color logo on our greeting banner, continuous live stage announcements, and customizable promotional spacing on guest tables.</p>
+                    <ul class="item-list-preview">
+                        <li>Grand Finale Fireworks Show (2 Available)</li>
+                        <li>Live Band Main Stage (2 Available)</li>
+                        <li>Food Truck Feature Sponsor (2 Available)</li>
+                    </ul>
                 </div>
 
                 <div class="tier-card" style="border-left-color: #a1a1a1;">
                     <div class="tier-header">
-                        <span class="tier-name">⚪ Silver Sponsor</span>
+                        <span class="tier-name">⚪ Event Feature Host</span>
                         <span class="tier-price">$300</span>
                     </div>
-                    <p class="tier-details">Includes name placement on the sponsor board, public verbal recognition by our DJ/Band, and a dedicated social media shout-out.</p>
+                    <p class="tier-details"><strong>Perks:</strong> Mid-sized welcome board directory layout, dedicated verbal shout-outs from the stage, and custom social media highlight posts.</p>
+                    <ul class="item-list-preview">
+                        <li>Kids Giant Bounce Houses (3 Available)</li>
+                        <li>Snow Cone Station (1 Available)</li>
+                        <li>The Pumpkin Patch Area (1 Available)</li>
+                    </ul>
                 </div>
 
-                <div class="tier-card" style="border-left-color: var(--gold);">
+                <div class="tier-card" style="border-left-color: #b58230;">
                     <div class="tier-header">
-                        <span class="tier-name">🟡 Gold Event Partner</span>
-                        <span class="tier-price">$500+</span>
+                        <span class="tier-name">🟤 Event Support Sponsor</span>
+                        <span class="tier-price">$150</span>
                     </div>
-                    <p class="tier-details"><strong>Premium Placement:</strong> Large color logo featured at the top of our main sponsor banner, continuous announcements during fireworks, and space to place company promo items on guest tables.</p>
+                    <p class="tier-details"><strong>Perks:</strong> High-visibility text layout placement across our entryway event sponsor directories.</p>
+                    <ul class="item-list-preview">
+                        <li>The S'mores & Campfire Hub (1 Available)</li>
+                        <li>Haunted Trail Sections (2 Available)</li>
+                        <li>Main Field Fire Pits (2 Available)</li>
+                        <li>Overall Event Support (2 Available)</li>
+                    </ul>
                 </div>
             </div>
         </div>
 
         <div class="rsvp-form-container">
-            <h3>Sponsor Registration Form</h3>
+            <h3>Sponsor Registry</h3>
             <form action="https://formspree.io/f/xjgzgpqj" method="POST">
                 <div class="form-grid">
                     <div class="form-group">
-                        <label for="bizName">Business or Family Name</label>
-                        <input type="text" name="Sponsor Entity Name" id="bizName" placeholder="e.g., Smith Painting LLC" required>
+                        <label for="bizName">Sponsor or Business Name</label>
+                        <input type="text" name="Sponsor Entity Name" id="bizName" placeholder="e.g., The Smith Family / ABC Corp" required>
                     </div>
                     <div class="form-group">
-                        <label for="contactEmail">Contact Email Address</label>
+                        <label for="contactEmail">Contact Email</label>
                         <input type="email" name="Sponsor Email" id="contactEmail" placeholder="name@domain.com" required>
                     </div>
                 </div>
                 
                 <div class="form-grid">
                     <div class="form-group">
-                        <label for="tierSelect">Select Sponsorship Level</label>
-                        <select name="Selected Tier" id="tierSelect" required>
-                            <option value="Bronze Level ($150)">Bronze Level ($150)</option>
-                            <option value="Silver Level ($300)">Silver Level ($300)</option>
-                            <option value="Gold Event Partner ($500+)">Gold Event Partner ($500+)</option>
+                        <label for="tierSelect">Select An Item To Claim</label>
+                        <select name="Selected Sponsorship Item" id="tierSelect" required>
+                            <optgroup label="Premier Partner Options — $750">
+                                <option value="Gold: Grand Finale Fireworks ($750)">Grand Finale Fireworks Show ($750)</option>
+                                <option value="Gold: Live Band Main Stage ($750)">Live Band Main Stage ($750)</option>
+                                <option value="Gold: Food Truck Sponsor ($750)">Food Truck Feature Sponsor ($750)</option>
+                            </optgroup>
+                            <optgroup label="Feature Host Options — $300">
+                                <option value="Silver: Kids Bounce Houses ($300)">Kids Giant Bounce House (Slot A, B, or C) ($300)</option>
+                                <option value="Silver: Snow Cone Station ($300)">Snow Cone Machine Station ($300)</option>
+                                <option value="Silver: Pumpkin Patch ($300)">The Pumpkin Patch Area ($300)</option>
+                            </optgroup>
+                            <optgroup label="Support Sponsor Options — $150">
+                                <option value="Bronze: S'mores Hub ($150)">The S'mores & Campfire Hub ($150)</option>
+                                <option value="Bronze: Haunted Trail ($150)">Haunted Trail Section Sponsor ($150)</option>
+                                <option value="Bronze: Field Fire Pits ($150)">Main Field Fire Pit Sponsor ($150)</option>
+                                <option value="Bronze: Overall Support ($150)">Overall General Event Support ($150)</option>
+                            </optgroup>
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="notes">Special Notes or Requests</label>
-                        <input type="text" name="Sponsor Notes" id="notes" placeholder="e.g., Please use our specific family font">
+                        <label for="notes">Sponsor Notes</label>
+                        <input type="text" name="Sponsor Notes" id="notes" placeholder="e.g., Please reach out about sending our logo file">
                     </div>
                 </div>
-                <button type="submit" class="btn-submit">Submit Sponsorship Sign-Up</button>
+                <button type="submit" class="btn-submit">Submit Sponsorship Commitment</button>
             </form>
         </div>
     </div>

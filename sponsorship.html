@@ -1,48 +1,273 @@
-<div class="banner-alert" style="background-color: #f5f0e6; border-left-color: var(--gold); margin-bottom: 0;">
-                ⛺ <strong>Stay the Night:</strong> Want to camp? Feel free to find a spot for your camper or tent! Just please send us an RSVP note ahead of time so we can plan space (highly recommended!).
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sponsorship Opportunities - Fall Kickoff</title>
+    <style>
+        :root {
+            --terracotta: #a35d47;
+            --cream: #f7f7f3;
+            --dark-charcoal: #2d2d2d;
+            --gold: #c9933b;
+        }
+        
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Garamond', 'EB Garamond', serif;
+            background-color: #e5e5e0;
+            color: var(--dark-charcoal);
+            line-height: 1.5;
+            padding: 40px 0;
+        }
+
+        .invitation-card {
+            background-color: var(--cream);
+            width: 8.5in;
+            min-height: 11in;
+            padding: 0.6in 0.8in;
+            margin: 0 auto;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .invitation-card::before {
+            content: ""; position: absolute; top: 15px; left: 15px; right: 15px; bottom: 15px;
+            border: 2px solid var(--terracotta); pointer-events: none;
+        }
+
+        .invitation-card::after {
+            content: ""; position: absolute; top: 21px; left: 21px; right: 21px; bottom: 21px;
+            border: 1px solid var(--gold); pointer-events: none;
+        }
+
+        header { text-align: center; margin-bottom: 25px; }
+        
+        .back-link {
+            display: inline-block;
+            color: var(--terracotta);
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.05rem;
+            margin-bottom: 15px;
+        }
+
+        h1 {
+            color: var(--terracotta);
+            font-size: 2.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            line-height: 1.1;
+            margin-bottom: 5px;
+        }
+
+        .intro-p {
+            font-size: 1.15rem;
+            text-align: center;
+            max-width: 90%;
+            margin: 0 auto 20px auto;
+        }
+
+        .section-title {
+            color: var(--terracotta);
+            font-size: 1.2rem;
+            border-bottom: 1px solid var(--gold);
+            padding-bottom: 3px;
+            margin: 20px 0 15px 0;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: bold;
+        }
+
+        /* Sponsor Tier Layout */
+        .tier-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .tier-card {
+            background-color: #fbfbfa;
+            border: 1px solid #e2ded5;
+            border-left: 5px solid var(--gold);
+            padding: 15px;
+            border-radius: 4px;
+            text-align: left;
+        }
+
+        .tier-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 5px;
+        }
+
+        .tier-name {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: var(--terracotta);
+        }
+
+        .tier-price {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: var(--dark-charcoal);
+        }
+
+        .tier-details {
+            font-size: 1.05rem;
+            color: #555;
+            padding-left: 5px;
+        }
+
+        /* Form Design */
+        .rsvp-form-container {
+            background-color: var(--terracotta);
+            color: var(--cream);
+            padding: 20px;
+            border-radius: 6px;
+            text-align: left;
+            margin-top: auto;
+            z-index: 5;
+        }
+
+        .rsvp-form-container h3 {
+            font-size: 1.4rem;
+            color: #ffffff;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+            letter-spacing: 1px;
+            text-align: center;
+            border-bottom: 1px dashed rgba(255,255,255,0.3);
+            padding-bottom: 5px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        .form-group { display: flex; flex-direction: column; }
+
+        .form-group label {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            font-weight: bold;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+            color: #ffffff;
+        }
+
+        .form-group input, .form-group select {
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 0.95rem;
+            font-family: inherit;
+        }
+
+        .btn-submit {
+            background-color: var(--gold);
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            font-size: 1.05rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .btn-submit:hover { background-color: #b58230; }
+    </style>
+</head>
+<body>
+
+    <div class="invitation-card">
+        <div>
+            <header>
+                <a href="index.html" class="back-link">&larr; Back to Invitation</a>
+                <h1>Sponsorship Opportunities</h1>
+                <p style="font-size: 1.1rem; font-weight: bold; color: var(--gold); text-transform: uppercase; letter-spacing: 1px;">
+                    9th Annual Fall Kickoff &bull; October 3rd, 2026
+                </p>
+            </header>
+
+            <p class="intro-p">
+                Our annual Fall Kickoff brings together neighborhood families, friends, and local businesses for a memorable day. Partner with us to feature your business while helping keep our fireworks, live band, and family events completely free for everyone!
+            </p>
+
+            <div class="section-title">✨ Available Sponsorship Levels</div>
+            
+            <div class="tier-container">
+                <div class="tier-card" style="border-left-color: #b58230;">
+                    <div class="tier-header">
+                        <span class="tier-name">🟤 Bronze Sponsor</span>
+                        <span class="tier-price">$150</span>
+                    </div>
+                    <p class="tier-details">Includes your family or business name listed prominently on our event sponsor board at the welcome entrance.</p>
+                </div>
+
+                <div class="tier-card" style="border-left-color: #a1a1a1;">
+                    <div class="tier-header">
+                        <span class="tier-name">⚪ Silver Sponsor</span>
+                        <span class="tier-price">$300</span>
+                    </div>
+                    <p class="tier-details">Includes name placement on the sponsor board, public verbal recognition by our DJ/Band, and a dedicated social media shout-out.</p>
+                </div>
+
+                <div class="tier-card" style="border-left-color: var(--gold);">
+                    <div class="tier-header">
+                        <span class="tier-name">🟡 Gold Event Partner</span>
+                        <span class="tier-price">$500+</span>
+                    </div>
+                    <p class="tier-details"><strong>Premium Placement:</strong> Large color logo featured at the top of our main sponsor banner, continuous announcements during fireworks, and space to place company promo items on guest tables.</p>
+                </div>
             </div>
         </div>
 
-        <div class="banner-alert" style="background-color: #fcfbf7; border-left-color: var(--gold); border: 1px solid #e2ded5; border-left-width: 4px; text-align: center; margin-top: 15px; margin-bottom: 15px;">
-            📣 <strong>Want to support the event?</strong> We are looking for local business & family sponsors! <a href="sponsorship.html" style="color: var(--terracotta); font-weight: bold; text-decoration: underline; margin-left: 5px;">View Sponsorship Opportunities &rarr;</a>
-        </div>
-
         <div class="rsvp-form-container">
-            <h3>Kindly RSVP By September 20th</h3>
+            <h3>Sponsor Registration Form</h3>
             <form action="https://formspree.io/f/xjgzgpqj" method="POST">
-                <div class="form-grid-top">
+                <div class="form-grid">
                     <div class="form-group">
-                        <label for="guestName">Family Name</label>
-                        <input type="text" name="Family Name" id="guestName" placeholder="e.g., The Smith Family" required>
+                        <label for="bizName">Business or Family Name</label>
+                        <input type="text" name="Sponsor Entity Name" id="bizName" placeholder="e.g., Smith Painting LLC" required>
                     </div>
                     <div class="form-group">
-                        <label for="attendance">Will You Join Us?</label>
-                        <select name="Attendance Status" id="attendance" required>
-                            <option value="Yes, wouldn't miss it!">Yes, wouldn't miss it!</option>
-                            <option value="Regretfully declining">Regretfully declining</option>
-                        </select>
+                        <label for="contactEmail">Contact Email Address</label>
+                        <input type="email" name="Sponsor Email" id="contactEmail" placeholder="name@domain.com" required>
                     </div>
                 </div>
                 
-                <div class="form-grid-bottom">
+                <div class="form-grid">
                     <div class="form-group">
-                        <label for="adults">Adults</label>
-                        <input type="number" name="Adults Count" id="adults" min="0" max="10" value="2" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="kids">Kids</label>
-                        <input type="number" name="Kids Count" id="kids" min="0" max="10" value="0" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="camping">Staying overnight?</label>
-                        <select name="Camping Selection" id="camping">
-                            <option value="No camping space needed">No camping needed</option>
-                            <option value="Yes, bringing a Tent">Yes, bringing a Tent</option>
-                            <option value="Yes, bringing a Camper/RV">Yes, bringing a Camper/RV</option>
+                        <label for="tierSelect">Select Sponsorship Level</label>
+                        <select name="Selected Tier" id="tierSelect" required>
+                            <option value="Bronze Level ($150)">Bronze Level ($150)</option>
+                            <option value="Silver Level ($300)">Silver Level ($300)</option>
+                            <option value="Gold Event Partner ($500+)">Gold Event Partner ($500+)</option>
                         </select>
                     </div>
+                    <div class="form-group">
+                        <label for="notes">Special Notes or Requests</label>
+                        <input type="text" name="Sponsor Notes" id="notes" placeholder="e.g., Please use our specific family font">
+                    </div>
                 </div>
-                <button type="submit" class="btn-submit">Submit Response to Host</button>
+                <button type="submit" class="btn-submit">Submit Sponsorship Sign-Up</button>
             </form>
         </div>
     </div>
+
+</body>
+</html>

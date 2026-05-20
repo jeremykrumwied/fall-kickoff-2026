@@ -39,7 +39,6 @@
             justify-content: space-between;
         }
 
-        /* Clean double-border framing */
         .invitation-card::before {
             content: "";
             position: absolute;
@@ -114,7 +113,6 @@
             font-weight: bold;
         }
 
-        /* Streamlined Vertical Timeline Layout */
         .timeline-container {
             display: flex;
             flex-direction: column;
@@ -142,7 +140,6 @@
             color: var(--dark-charcoal);
         }
 
-        /* Clean Side-by-Side Information Blocks */
         .info-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -172,7 +169,6 @@
             text-align: left;
         }
 
-        /* Form Styling Container */
         .rsvp-form-container {
             background-color: var(--terracotta);
             color: var(--cream);
@@ -197,193 +193,4 @@
         .form-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 12px;
-            margin-bottom: 12px;
-        }
-
-        .form-group {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .form-group label {
-            font-size: 0.85rem;
-            text-transform: uppercase;
-            font-weight: bold;
-            letter-spacing: 0.5px;
-            margin-bottom: 4px;
-            color: #ffffff;
-        }
-
-        .form-group input, .form-group select {
-            padding: 8px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            font-size: 0.95rem;
-            font-family: inherit;
-        }
-
-        .btn-submit {
-            background-color: var(--gold);
-            color: white;
-            border: none;
-            padding: 10px 15px;
-            font-size: 1.05rem;
-            font-weight: bold;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            border-radius: 4px;
-            cursor: pointer;
-            width: 100%;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-        }
-
-        .btn-submit:hover {
-            background-color: #b58230;
-        }
-
-        @media print {
-            body { background: none; padding: 0; }
-            .invitation-card { margin: 0; box-shadow: none; }
-            .rsvp-form-container { display: none; }
-        }
-    </style>
-</head>
-<body>
-
-    <div class="invitation-card">
-        <div>
-            <header>
-                <div class="accent-top">🍂 🌾 🍂</div>
-                <p style="text-transform: uppercase; letter-spacing: 2px; font-size: 0.95rem; color: #666; margin-bottom: 5px;">The Krumwied Family Invites You To The</p>
-                <h1>9th Annual Fall Kickoff</h1>
-                
-                <div class="main-details">Saturday, October 3rd, 2026 &bull; Festivities Begin at 4:00 PM</div>
-                <div class="address-display">Hosted at the Krumwied Home: 6825 Sweetgrass Lane, Cicero, IN 46034</div>
-            </header>
-
-            <p class="intro-p">
-                If you’ve attended in the past, you get it. If not, you're in for an amazing time! Bring your friends and family for a full day of fall fun, music, food, and fireworks.
-            </p>
-
-            <div class="section-title">🕒 The Schedule</div>
-            <div class="timeline-container">
-                <div class="timeline-row">
-                    <span class="timeline-time">4:00 PM – Dusk</span>
-                    <span class="timeline-desc">Yard Games, Kids Crafts, & Bounce Houses</span>
-                </div>
-                <div class="timeline-row">
-                    <span class="timeline-time">4:00 PM – Until Gone</span>
-                    <span class="timeline-desc">Food Truck (featuring Catering Chili!)</span>
-                </div>
-                <div class="timeline-row">
-                    <span class="timeline-time">4:30 PM – Dusk</span>
-                    <span class="timeline-desc">Hayrides, S'mores, & Pumpkin Patch</span>
-                </div>
-                <div class="timeline-row">
-                    <span class="timeline-time">5:00 PM – 7:00 PM</span>
-                    <span class="timeline-desc">Snow Cones 🍧</span>
-                </div>
-                <div class="timeline-row">
-                    <span class="timeline-time">5:00 PM – 8:00 PM</span>
-                    <span class="timeline-desc">Live Music featuring <strong>Hill and Oaks</strong> 🎸</span>
-                </div>
-                <div class="timeline-row">
-                    <span class="timeline-time">At Dusk</span>
-                    <span class="timeline-desc">Grand Finale Fireworks Show 🎆</span>
-                </div>
-                <div class="timeline-row" style="border-bottom: none;">
-                    <span class="timeline-time">9:30 PM – 11:00 PM</span>
-                    <span class="timeline-desc"><strong>After Party in the Back!</strong> (Campfire, DJ, hot dogs, and dancing) 🔥💃</span>
-                </div>
-            </div>
-
-            <div class="banner-alert">
-                🚒 <strong>Special Feature:</strong> Jackson Township Fire Trucks will be on-site for the kids to check out!
-            </div>
-
-            <div class="info-grid">
-                <div class="info-box">
-                    <div class="section-title">🍽️ Food & Drinks Provided</div>
-                    <ul>
-                        <li>Food Truck Chili</li>
-                        <li>Two beers on tap</li>
-                        <li>Water & Lemonade</li>
-                    </ul>
-                </div>
-                
-                <div class="info-box">
-                    <div class="section-title">🎒 What to Bring & Know</div>
-                    <ul>
-                        <li><strong>BYOB:</strong> Feel free to bring your own drinks outside of what is listed.</li>
-                        <li><strong>Outdoor Essentials:</strong> Bug spray and sunscreen.</li>
-                        <li><strong>Spread the Word:</strong> Friends and family are welcome!</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="banner-alert" style="background-color: #f5f0e6; border-left-color: var(--gold); margin-bottom: 0;">
-                ⛺ <strong>Stay the Night:</strong> Want to camp? Feel free to find a spot for your camper or tent! Just please send us an RSVP note ahead of time so we can plan space (highly recommended!).
-            </div>
-        </div>
-
-        <div class="rsvp-form-container">
-            <h3>Kindly RSVP By September 20th</h3>
-            <form id="rsvpForm">
-                <div class="form-grid">
-                    <div class="form-group">
-                        <label for="guestName">Family Name</label>
-                        <input type="text" id="guestName" placeholder="e.g., The Smith Family" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="attendance">Will You Join Us?</label>
-                        <select id="attendance" required>
-                            <option value="Yes, wouldn't miss it!">Yes, wouldn't miss it!</option>
-                            <option value="Regretfully declining">Regretfully declining</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="form-grid">
-                    <div class="form-group">
-                        <label for="headcount">Total Guests attending</label>
-                        <input type="number" id="headcount" min="1" max="15" value="2" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="camping">Staying overnight?</label>
-                        <select id="camping">
-                            <option value="No camping space needed">No camping needed</option>
-                            <option value="Yes, bringing a Tent">Yes, bringing a Tent</option>
-                            <option value="Yes, bringing a Camper/RV">Yes, bringing a Camper/RV</option>
-                        </select>
-                    </div>
-                </div>
-                <button type="submit" class="btn-submit">Submit Response to Host</button>
-            </form>
-        </div>
-    </div>
-
-    <script>
-        document.getElementById('rsvpForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const name = document.getElementById('guestName').value;
-            const status = document.getElementById('attendance').value;
-            const count = document.getElementById('headcount').value;
-            const campOption = document.getElementById('camping').value;
-            
-            const subject = encodeURIComponent(`Fall Kickoff RSVP - ${name}`);
-            const body = encodeURIComponent(
-                `Hi Jeremy,\n\nHere is our RSVP response for the 9th Annual Fall Kickoff:\n\n` +
-                `• Family Name: ${name}\n` +
-                `• Attendance: ${status}\n` +
-                `• Total Count: ${count} guest(s)\n` +
-                `• Camping Status: ${campOption}\n\n` +
-                `See you there!`
-            );
-            
-            window.location.href = `mailto:jeremy.krumwied@gmail.com?subject=${subject}&body=${body}`;
-        });
-    </script>
-
-</body>
-</html>
+            gap: 12

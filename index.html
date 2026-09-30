@@ -3,376 +3,319 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Invitation - 9th Annual Fall Kickoff</title>
+    <title>9th Annual Fall Kickoff - Interactive Site Map</title>
     <style>
         :root {
             --terracotta: #a35d47;
             --cream: #f7f7f3;
-            --dark-charcoal: #2d2d2d;
+            --dark: #121212;
             --gold: #c9933b;
+            --green: #2e7d32;
+            --blue: #1565c0;
+            --purple: #6a1b9a;
+            --red: #c62828;
         }
-        
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
 
         body {
-            font-family: 'Garamond', 'EB Garamond', serif;
-            background-color: #e5e5e0;
-            color: var(--dark-charcoal);
-            line-height: 1.5;
-            padding: 40px 0;
-        }
-
-        .invitation-card {
-            background-color: var(--cream);
-            width: 8.5in;
-            min-height: 11in;
-            padding: 0.6in 0.8in;
-            margin: 0 auto;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
-            position: relative;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--dark);
+            color: #ffffff;
+            line-height: 1.4;
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
-        }
-
-        .invitation-card::before {
-            content: "";
-            position: absolute;
-            top: 15px; left: 15px; right: 15px; bottom: 15px;
-            border: 2px solid var(--terracotta);
-            pointer-events: none;
-        }
-
-        .invitation-card::after {
-            content: "";
-            position: absolute;
-            top: 21px; left: 21px; right: 21px; bottom: 21px;
-            border: 1px solid var(--gold);
-            pointer-events: none;
         }
 
         header {
-            text-align: center;
-            margin-bottom: 20px;
+            background-color: #1e1e1e;
+            padding: 10px 16px;
+            border-bottom: 2px solid var(--gold);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            z-index: 20;
         }
 
-        .accent-top {
+        .header-titles h1 {
             color: var(--gold);
-            font-size: 2rem;
-            letter-spacing: 5px;
-            margin-top: 10px;
-            margin-bottom: 5px;
-        }
-
-        h1 {
-            color: var(--terracotta);
-            font-size: 3.2rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            line-height: 1.1;
-            margin-bottom: 10px;
-        }
-
-        .main-details {
-            font-size: 1.25rem;
-            font-weight: bold;
-            color: var(--terracotta);
+            font-size: 1.1rem;
             text-transform: uppercase;
             letter-spacing: 0.5px;
-            margin-bottom: 4px;
         }
 
-        .address-display {
-            font-size: 1.2rem;
-            color: var(--dark-charcoal);
-            font-style: italic;
-            margin-bottom: 15px;
+        .header-titles p {
+            color: #aaa;
+            font-size: 0.75rem;
         }
 
-        .intro-p {
-            font-size: 1.15rem;
-            text-align: center;
-            max-width: 85%;
-            margin: 0 auto 20px auto;
-            line-height: 1.5;
-            color: #444;
-        }
-
-        .section-title {
-            color: var(--terracotta);
-            font-size: 1.2rem;
-            border-bottom: 1px solid var(--gold);
-            padding-bottom: 3px;
-            margin: 15px 0 12px 0;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            font-weight: bold;
-        }
-
-        .timeline-container {
+        .header-actions {
             display: flex;
-            flex-direction: column;
             gap: 8px;
-            margin-bottom: 15px;
+            align-items: center;
         }
 
-        .timeline-row {
-            display: flex;
-            align-items: baseline;
-            text-align: left;
-            font-size: 1.1rem;
-            border-bottom: 1px dashed rgba(0,0,0,0.06);
-            padding-bottom: 4px;
-        }
-
-        .timeline-time {
-            font-weight: bold;
-            color: var(--terracotta);
-            width: 160px;
-            flex-shrink: 0;
-        }
-
-        .timeline-desc {
-            color: var(--dark-charcoal);
-        }
-
-        .info-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 25px;
-            text-align: left;
-            margin-bottom: 15px;
-        }
-
-        .info-box ul {
-            list-style-type: square;
-            padding-left: 18px;
-            font-size: 1.05rem;
-        }
-
-        .info-box li {
-            margin-bottom: 6px;
-        }
-
-        .banner-alert {
-            background-color: #f0ede6;
-            border-left: 4px solid #4a6b53;
-            padding: 10px 14px;
-            font-size: 1.05rem;
-            border-radius: 0 4px 4px 0;
-            margin-bottom: 15px;
-            text-align: left;
-        }
-
-        /* MAP CALLOUT BANNER */
-        .map-banner-callout {
-            background-color: #fbf7f0;
-            border: 2px solid var(--gold);
-            border-radius: 6px;
-            padding: 14px 18px;
-            margin: 0 auto 20px auto;
-            text-align: center;
-            max-width: 90%;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-            position: relative;
-            z-index: 10;
-        }
-
-        .btn-map-link {
-            display: inline-block;
+        .btn {
             background-color: var(--terracotta);
-            color: #ffffff !important;
-            padding: 12px 24px;
-            font-size: 1.1rem;
+            color: #fff;
+            padding: 8px 12px;
+            border-radius: 6px;
+            text-decoration: none;
             font-weight: bold;
-            text-transform: uppercase;
-            letter-spacing: 0.8px;
-            border-radius: 4px;
-            text-decoration: none !important;
-            margin-top: 10px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-            transition: background-color 0.2s ease;
+            font-size: 0.8rem;
+            border: none;
             cursor: pointer;
+            white-space: nowrap;
         }
 
-        .btn-map-link:hover {
-            background-color: #8c4c37;
+        .btn-sec {
+            background-color: #333;
+            border: 1px solid #555;
         }
 
-        .action-buttons-group {
+        .banner {
+            background-color: #1a1a1a;
+            color: var(--gold);
+            padding: 6px 12px;
+            font-size: 0.8rem;
+            text-align: center;
+            border-bottom: 1px solid #333;
             display: flex;
             justify-content: center;
-            gap: 15px;
+            align-items: center;
+            gap: 10px;
             flex-wrap: wrap;
-            margin-top: 10px;
         }
 
-        .rsvp-banner-container {
-            background-color: var(--terracotta);
-            color: var(--cream);
-            padding: 20px;
+        /* MAP AREA */
+        .viewport {
+            position: relative;
+            width: 100%;
+            flex: 1;
+            overflow: hidden;
+            background: #0d0d0d;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        .map-wrapper {
+            position: relative;
+            width: 100%;
+            max-width: 1100px;
+            margin: 10px auto;
+            border: 2px solid var(--gold);
             border-radius: 6px;
-            text-align: center;
-            margin-top: auto;
-            z-index: 5;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
         }
 
-        .rsvp-banner-container h3 {
-            font-size: 1.4rem;
+        .map-img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* PINS */
+        .pin {
+            position: absolute;
+            transform: translate(-50%, -50%);
+            background-color: rgba(18, 18, 18, 0.9);
             color: #ffffff;
-            text-transform: uppercase;
-            margin-bottom: 8px;
-            letter-spacing: 1px;
-        }
-
-        .rsvp-banner-container p {
-            font-size: 1.05rem;
-            margin-bottom: 15px;
-            color: #f7f7f3;
-        }
-
-        .btn-evite {
-            display: inline-block;
-            background-color: var(--gold);
-            color: #ffffff !important;
-            padding: 12px 28px;
-            font-size: 1.15rem;
+            padding: 3px 7px;
+            border-radius: 10px;
+            font-size: 0.72rem;
             font-weight: bold;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            border-radius: 4px;
-            text-decoration: none !important;
-            box-shadow: 0 3px 6px rgba(0,0,0,0.2);
-            transition: background-color 0.2s ease;
+            border: 1.5px solid var(--gold);
+            box-shadow: 0 2px 6px rgba(0,0,0,0.7);
+            white-space: nowrap;
             cursor: pointer;
+            z-index: 10;
+            user-select: none;
+            transition: transform 0.15s ease, background-color 0.15s ease;
         }
 
-        .btn-evite:hover {
-            background-color: #b58230;
+        .pin:hover, .pin.active {
+            transform: translate(-50%, -50%) scale(1.15);
+            background-color: var(--terracotta);
+            border-color: #ffffff;
+            z-index: 30;
         }
 
-        @media print {
-            body { background: none; padding: 0; }
-            .invitation-card { margin: 0; box-shadow: none; }
-            .rsvp-banner-container, .map-banner-callout { display: none; }
+        .pin.vertical {
+            writing-mode: vertical-rl;
+            text-orientation: mixed;
+            padding: 7px 3px;
+        }
+
+        /* MODAL POPUP */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0, 0, 0, 0.75);
+            z-index: 100;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .modal-overlay.active { display: flex; }
+
+        .modal-card {
+            background-color: var(--cream);
+            color: #222;
+            max-width: 420px;
+            width: 100%;
+            border-radius: 8px;
+            padding: 20px;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            border: 2px solid var(--terracotta);
+            animation: pop 0.2s ease-out;
+        }
+
+        @keyframes pop {
+            from { transform: scale(0.9); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 8px; right: 12px;
+            font-size: 1.5rem;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #777;
+        }
+
+        .close-btn:hover { color: #000; }
+
+        .modal-title {
+            color: var(--terracotta);
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .modal-body {
+            font-size: 0.95rem;
+            line-height: 1.5;
+            color: #333;
+        }
+
+        @media (max-width: 600px) {
+            .pin {
+                font-size: 0.65rem;
+                padding: 2px 5px;
+            }
+            .pin.vertical {
+                padding: 5px 2px;
+            }
+            header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .header-actions {
+                width: 100%;
+                justify-content: space-between;
+                margin-top: 4px;
+            }
         }
     </style>
 </head>
 <body>
 
-    <div class="invitation-card">
-        <div>
-            <header>
-                <div class="accent-top">🍂 🌾 🍂</div>
-                <p style="text-transform: uppercase; letter-spacing: 2px; font-size: 0.95rem; color: #666; margin-bottom: 5px;">The Krumwied Family Invites You To The</p>
-                <h1>9th Annual Fall Kickoff</h1>
-                
-                <div class="main-details">Saturday, October 3rd, 2026 &bull; Festivities Begin at 4:30 PM</div>
-                <div class="address-display">Hosted at the Krumwied Home: 6825 Sweetgrass Lane, Cicero, IN 46034</div>
-            </header>
-
-            <!-- CALLOUT FOR MAP REVIEW BEFORE ARRIVAL -->
-            <div class="map-banner-callout">
-                <p style="font-size: 1.15rem; font-weight: bold; color: var(--terracotta);">
-                    📍 Please Review the Event Map Before Arrival!
-                </p>
-                <p style="font-size: 1rem; color: #555; margin-top: 4px;">
-                    Check designated parking rows, check-in tent location, bounce houses, and activity zones:
-                </p>
-                <a href="./map.html" class="btn-map-link">🗺️ View Interactive Site Map</a>
-            </div>
-
-            <p class="intro-p">
-                If you’ve attended in the past, you get it. If not, you're in for an amazing time! Bring your friends and family for a full day of fall fun, music, food, and fireworks.
-            </p>
-
-            <div class="banner-alert" style="background-color: #fcfbf7; border-left-color: var(--terracotta); border: 1px solid #e2ded5; border-left-width: 5px;">
-                🎟️ <strong>Arrival & Check-In:</strong> Please check in at the <strong>Maid Right tent</strong> at the front when you arrive! 
-                <ul style="margin-top: 5px; padding-left: 20px;">
-                    <li><strong>Adult Meals:</strong> $5 per meal</li>
-                    <li><strong>Kids Meals:</strong> Free!</li>
-                    <li>Pick up your food tickets and kids' snow cone coins here.</li>
-                </ul>
-            </div>
-
-            <div class="section-title">🕒 The Schedule</div>
-            <div class="timeline-container">
-                <div class="timeline-row">
-                    <span class="timeline-time">4:00 PM – Dusk</span>
-                    <span class="timeline-desc">Yard Games, Kids Crafts, & Bounce Houses</span>
-                </div>
-                <div class="timeline-row">
-                    <span class="timeline-time">4:00 PM – Until Gone</span>
-                    <span class="timeline-desc">Porkopolis Food Truck & Chili</span>
-                </div>
-                <div class="timeline-row">
-                    <span class="timeline-time">4:30 PM – Dusk</span>
-                    <span class="timeline-desc">Hayrides, S'mores, & Pumpkin Patch</span>
-                </div>
-                <div class="timeline-row">
-                    <span class="timeline-time">5:00 PM – 7:00 PM</span>
-                    <span class="timeline-desc">Snow Cones 🍧</span>
-                </div>
-                <div class="timeline-row">
-                    <span class="timeline-time">5:30 PM – 9:00 PM</span>
-                    <span class="timeline-desc">Live Music featuring <strong>Dream Slice</strong> 🎸</span>
-                </div>
-                <div class="timeline-row">
-                    <span class="timeline-time">At Dusk</span>
-                    <span class="timeline-desc">Grand Finale Fireworks Show 🎆</span>
-                </div>
-                <div class="timeline-row" style="border-bottom: none;">
-                    <span class="timeline-time">9:30 PM – 11:00 PM</span>
-                    <span class="timeline-desc"><strong>After Party in the Back!</strong> (Campfire, DJ, hot dogs, and dancing) 🔥💃</span>
-                </div>
-            </div>
-
-            <div class="banner-alert">
-                🚒 <strong>Special Feature:</strong> Jackson Township Fire Trucks will be on-site for the kids to check out!
-            </div>
-
-            <div class="info-grid">
-                <div class="info-box">
-                    <div class="section-title">🍽️ Food & Drinks Provided</div>
-                    <ul>
-                        <li>Porkopolis Food Truck & Chili (while it lasts!)</li>
-                        <li>Two beers on tap</li>
-                        <li>Water & Lemonade</li>
-                    </ul>
-                </div>
-                
-                <div class="info-box">
-                    <div class="section-title">🎒 What to Know</div>
-                    <ul>
-                        <li><strong>Bringing Drinks/Snacks:</strong> While food, drinks, and snacks are provided, feel free to bring any specific drinks or snacks for your party!</li>
-                        <li><strong>Accurate RSVPs:</strong> Exact adult and kid counts are critical so we have enough food, snow cones, and pumpkins for the kids!</li>
-                        <li><strong>Weather Prep:</strong> Dress in layers and consider bringing bug spray and sunscreen!</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="banner-alert" style="background-color: #f5f0e6; border-left-color: var(--gold); margin-bottom: 0;">
-                ⛺ <strong>Stay the Night:</strong> Want to camp? Feel free to find a spot for your camper or tent! Just please send us an RSVP note ahead of time so we can plan space (highly recommended!).
-            </div>
+    <header>
+        <div class="header-titles">
+            <h1>9th Annual Fall Kickoff</h1>
+            <p>6825 Sweetgrass Lane • Interactive Site Map</p>
         </div>
-
-        <div class="banner-alert" style="background-color: #fcfbf7; border-left-color: var(--gold); border: 1px solid #e2ded5; border-left-width: 4px; text-align: center; margin-top: 15px; margin-bottom: 15px;">
-            📣 <strong>Want to support the event?</strong> We are looking for local business & family sponsors! <a href="sponsorship.html" style="color: var(--terracotta); font-weight: bold; text-decoration: underline; margin-left: 5px;">View Sponsorship Opportunities &rarr;</a>
+        <div class="header-actions">
+            <a href="./index.html" class="btn btn-sec">📜 Invitation</a>
+            <button class="btn" onclick="window.print()">🖨️ Print / PDF</button>
         </div>
+    </header>
 
-        <div class="rsvp-banner-container">
-            <h3>Please RSVP via Evite</h3>
-            <p>To help us get exact headcounts for food, pumpkins, and snow cones, please respond through your Evite invitation!</p>
-            <div class="action-buttons-group">
-                <a href="https://evite.me/XcMNRzcTdT" target="_blank" rel="noopener noreferrer" class="btn-evite">RSVP on Evite Now</a>
-                <a href="./map.html" class="btn-evite" style="background-color: #4a6b53;">🗺️ View Site Map</a>
-            </div>
+    <div class="banner">
+        <span>💡 Tap any pin on the map to view details & schedule!</span>
+    </div>
+
+    <div class="viewport">
+        <div class="map-wrapper" id="mapWrapper">
+            <img src="./yard-map.jpg" alt="Fall Kickoff Yard Map" class="map-img">
         </div>
     </div>
 
+    <!-- MODAL POPUP -->
+    <div class="modal-overlay" id="modalOverlay" onclick="closeInfo(event)">
+        <div class="modal-card">
+            <button class="close-btn" onclick="forceCloseInfo()">&times;</button>
+            <div class="modal-title" id="modalTitle">Pin Info</div>
+            <div class="modal-body" id="modalBody">Details...</div>
+        </div>
+    </div>
+
+    <script>
+        const pinData = [
+            { "label": "🎆 Fireworks Launch Zone", "x": "82.2%", "y": "32.6%", "orientation": "horizontal", "desc": "Grand Finale fireworks show begins at dusk (~8:15 PM)! Please maintain a safe distance." },
+            { "label": "🚒 Touch-a-Truck", "x": "82.5%", "y": "41%", "orientation": "horizontal", "desc": "Jackson Township Fire Truck on site! Kids can explore from 4:30 PM – 7:00 PM." },
+            { "label": "📍 Check-In Tent", "x": "76.8%", "y": "47.5%", "orientation": "horizontal", "desc": "Check in here to collect meal tickets ($5 adult / free kids) and snow cone coins!" },
+            { "label": "🎸 Band Stage (Deck)", "x": "65.4%", "y": "56.8%", "orientation": "horizontal", "desc": "Live music on the deck by Dream Slice from 5:30 PM to 9:00 PM!" },
+            { "label": "Patio Lounge", "x": "63.7%", "y": "61.8%", "orientation": "horizontal", "desc": "Outdoor seating to relax, eat, and listen to the band." },
+            { "label": "🔥 Fire", "x": "75.5%", "y": "66.7%", "orientation": "horizontal", "desc": "Main campfire setup for cozy evening warming." },
+            { "label": "🎯 Lawn Games", "x": "83%", "y": "66.3%", "orientation": "vertical", "desc": "Cornhole, giant Jenga, and yard games available all evening!" },
+            { "label": "⛺ Dining Tent", "x": "76.8%", "y": "77.1%", "orientation": "horizontal", "desc": "Covered seating area to enjoy food and drinks." },
+            { "label": "🎨 Kids Coloring", "x": "90%", "y": "62.1%", "orientation": "vertical", "desc": "Craft and coloring table set up for kids!" },
+            { "label": "🏰 Bounce House Alley", "x": "72.9%", "y": "87.4%", "orientation": "horizontal", "desc": "Bounce houses open for kids from 4:00 PM until dusk!" },
+            { "label": "🚚 Vendor Row", "x": "90%", "y": "72.2%", "orientation": "vertical", "desc": "Porkopolis BBQ, chili station, and drinks on tap!" },
+            { "label": "🎃 Pumpkin Patch", "x": "71.4%", "y": "95%", "orientation": "horizontal", "desc": "Pick a pumpkin to decorate or take home!" },
+            { "label": "🔥 Trail Fire Pit/Smores", "x": "53.6%", "y": "70.5%", "orientation": "vertical", "desc": "Trail fire pit stocked with S'mores supplies!" },
+            { "label": "🚜 Hayride Route", "x": "54.3%", "y": "94%", "orientation": "horizontal", "desc": "Tractor-drawn hayride running continuously from 4:30 PM until dusk." },
+            { "label": "Bathrooms", "x": "85.7%", "y": "55.4%", "orientation": "vertical", "desc": "Restroom facilities located here." },
+            { "label": "🚗 One Row Parking Please", "x": "19.2%", "y": "32.2%", "orientation": "horizontal", "desc": "Single row parking along Sweetgrass Lane." },
+            { "label": "🚗 One Row Parking Please", "x": "4.9%", "y": "37.8%", "orientation": "horizontal", "desc": "Single row parking along Sweetgrass Lane." },
+            { "label": "🚗 4 Row Parking", "x": "54.3%", "y": "41.5%", "orientation": "horizontal", "desc": "Main parking area. Please park close together in 4 rows." },
+            { "label": "🚜 Hayride Pickup", "x": "90%", "y": "81.6%", "orientation": "vertical", "desc": "Board the hayride here!" },
+            { "label": "After Party", "x": "71.6%", "y": "91.2%", "orientation": "horizontal", "desc": "Post-fireworks gathering around the deck fire pits!" },
+            { "label": "🏰 Toddler Bounce House", "x": "66.5%", "y": "66.3%", "orientation": "vertical", "desc": "Dedicated safe bounce area for toddlers." },
+            { "label": "Soccer/Football", "x": "69.9%", "y": "43.8%", "orientation": "horizontal", "desc": "Open grass field for football and soccer." }
+        ];
+
+        const wrapper = document.getElementById('mapWrapper');
+
+        pinData.forEach(item => {
+            const pin = document.createElement('div');
+            pin.className = `pin ${item.orientation === 'vertical' ? 'vertical' : ''}`;
+            pin.style.left = item.x;
+            pin.style.top = item.y;
+            pin.innerText = item.label;
+
+            pin.onclick = (e) => {
+                e.stopPropagation();
+                openInfo(item.label, item.desc);
+            };
+            wrapper.appendChild(pin);
+        });
+
+        function openInfo(title, desc) {
+            document.getElementById('modalTitle').innerText = title;
+            document.getElementById('modalBody').innerText = desc;
+            document.getElementById('modalOverlay').classList.add('active');
+        }
+
+        function closeInfo(e) {
+            if (e.target.id === 'modalOverlay') {
+                document.getElementById('modalOverlay').classList.remove('active');
+            }
+        }
+
+        function forceCloseInfo() {
+            document.getElementById('modalOverlay').classList.remove('active');
+        }
+    </script>
 </body>
 </html>

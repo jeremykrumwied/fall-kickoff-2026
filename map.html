@@ -23,6 +23,7 @@
             background-color: #121212;
             color: #ffffff;
             line-height: 1.4;
+            padding-bottom: 30px;
         }
 
         header {
@@ -80,33 +81,118 @@
             background-color: #444;
         }
 
-        #mapContainer {
+        .map-container {
             position: relative;
-            max-width: 1200px;
+            max-width: 1100px;
             margin: 20px auto;
-            border: 2px solid #333;
+            border: 2px solid var(--gold);
             border-radius: 6px;
             overflow: hidden;
             box-shadow: 0 10px 25px rgba(0,0,0,0.6);
             background-color: #1a1a1a;
         }
 
-        #siteMapImage {
+        .map-img {
             width: 100%;
             height: auto;
             display: block;
         }
 
-        /* Tooltip styling for pins */
-        .map-pin {
+        /* OVERLAY PIN STYLES */
+        .pin {
             position: absolute;
             transform: translate(-50%, -50%);
-            cursor: pointer;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            color: #fff;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.4);
+            white-space: nowrap;
             z-index: 10;
         }
 
-        .map-pin:hover {
-            z-index: 30;
+        .pin-teal { background-color: #008080; border: 1px solid #fff; }
+        .pin-red { background-color: #d9534f; border: 1px solid #fff; }
+        .pin-darkred { background-color: #a94442; border: 1px solid #fff; }
+        .pin-green { background-color: #2e7d32; border: 1px solid #fff; }
+        .pin-blue { background-color: #1976d2; border: 1px solid #fff; }
+        .pin-purple { background-color: #6a1b9a; border: 1px solid #fff; }
+        .pin-gold { background-color: #c9933b; color: #000; border: 1px solid #fff; }
+
+        .stop-circle {
+            position: absolute;
+            transform: translate(-50%, -50%);
+            background-color: #e53935;
+            color: white;
+            font-weight: bold;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            border: 2px solid #fff;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+            z-index: 12;
+        }
+
+        .no-parking-text {
+            position: absolute;
+            transform: translate(-50%, -50%);
+            color: #ff3333;
+            font-size: 2.2rem;
+            font-weight: 900;
+            text-shadow: 2px 2px 4px #000, -2px -2px 4px #000;
+            letter-spacing: 2px;
+            z-index: 11;
+            white-space: nowrap;
+        }
+
+        .street-text {
+            position: absolute;
+            transform: translate(-50%, -50%);
+            color: rgba(255, 255, 255, 0.75);
+            font-size: 1.8rem;
+            font-weight: bold;
+            letter-spacing: 4px;
+            text-shadow: 2px 2px 4px #000;
+            z-index: 5;
+        }
+
+        .aqi-badge {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background-color: rgba(255, 255, 255, 0.9);
+            color: #000;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+            z-index: 15;
+        }
+
+        .aqi-dot {
+            width: 14px;
+            height: 14px;
+            background-color: #ffeb3b;
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        /* SHADED GREEN PARKING ZONES */
+        .zone-green-light {
+            position: absolute;
+            background-color: rgba(76, 175, 80, 0.45);
+            border: 2px solid #4CAF50;
+            border-radius: 4px;
+            z-index: 4;
         }
     </style>
 </head>
@@ -119,22 +205,44 @@
         </div>
         <div class="header-actions">
             <a href="./index.html" class="btn-header btn-secondary">📜 Back to Invitation</a>
-            <button class="btn-header" onclick="window.print()">🖨️ Print / Save PDF</button>
+            <button class="btn-header" onclick="window.print()">🖨️️ Print / Save PDF</button>
         </div>
     </header>
 
-    <div id="mapContainer">
-        <img id="siteMapImage" src="./yard-map.jpg" alt="Fall Kickoff Yard Map Layout" />
+    <div class="map-container">
+        <!-- BACKGROUND MAP IMAGE -->
+        <img src="./yard-map.jpg" alt="Fall Kickoff Yard Map" class="map-img">
+
+        <!-- AQI BADGE -->
+        <div class="aqi-badge">
+            AQI 54 <span class="aqi-dot"></span>
+        </div>
+
+        <!-- STREET NAME OVERLAY -->
+        <div class="street-text" style="top: 64%; left: 45%;">SWEETGRASS LN</div>
+
+        <!-- NO PARKING CALLOUT -->
+        <div class="no-parking-text" style="top: 71%; left: 45%;">NO PARKING</div>
+
+        <!-- STOP SIGN -->
+        <div class="stop-circle" style="top: 67%; left: 74%;">Stop</div>
+
+        <!-- GREEN PARKING ZONES -->
+        <div class="zone-green-light" style="top: 69%; left: 52%; width: 17%; height: 11%;"></div>
+
+        <!-- MAP PINS & OVERLAYS -->
+        <div class="pin pin-teal" style="top: 61%; left: 26%;">🚗 One Row Parking Please</div>
+        <div class="pin pin-teal" style="top: 68%; left: 25%;">🚗 One Row Parking Please</div>
+        
+        <div class="pin pin-teal" style="top: 75%; left: 60%;">🚗 4 Row Parking</div>
+        <div class="pin pin-blue" style="top: 78%; left: 73%;">⚽ Soccer/Football</div>
+        
+        <div class="pin pin-red" style="top: 63%; left: 83%;">🎆 Fireworks Launch Zone</div>
+        <div class="pin pin-red" style="top: 74%; left: 83%;">🚒 Touch-a-Truck</div>
+        
+        <div class="pin pin-purple" style="top: 83%; left: 78%;">⛺ Check-In Tent</div>
+        <div class="pin pin-purple" style="top: 96%; left: 71%;">🎸 Band Stage (Deck)</div>
     </div>
 
-    <script>
-        // Automatic image loader verification
-        window.addEventListener('load', () => {
-            const img = document.getElementById('siteMapImage');
-            if (img && !img.complete) {
-                img.src = './yard-map.jpg?v=' + new Date().getTime();
-            }
-        });
-    </script>
 </body>
 </html>

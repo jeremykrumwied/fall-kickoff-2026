@@ -10,13 +10,10 @@
             --cream: #f7f7f3;
             --dark: #121212;
             --gold: #c9933b;
+            --badge-bg: rgba(26, 26, 26, 0.92);
         }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
@@ -28,7 +25,7 @@
             align-items: center;
         }
 
-        /* HEADER & NAVIGATION */
+        /* HEADER */
         header {
             width: 100%;
             background-color: #1e1e1e;
@@ -47,7 +44,6 @@
             font-size: 1.1rem;
             text-transform: uppercase;
             letter-spacing: 0.5px;
-            line-height: 1.2;
         }
 
         .header-titles p {
@@ -74,20 +70,10 @@
             border: none;
             cursor: pointer;
             white-space: nowrap;
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
         }
 
-        .btn-header:hover {
-            background-color: #8c4c37;
-        }
-
-        .btn-secondary {
-            background-color: #333;
-            border: 1px solid #555;
-        }
+        .btn-header:hover { background-color: #8c4c37; }
+        .btn-secondary { background-color: #333; border: 1px solid #555; }
 
         .instruction-banner {
             width: 100%;
@@ -99,7 +85,7 @@
             border-bottom: 1px solid #2a2a2a;
         }
 
-        /* MAP DISPLAY CONTAINER */
+        /* MAP CONTAINER */
         .map-wrapper {
             width: 100%;
             max-width: 1100px;
@@ -124,15 +110,15 @@
             display: block;
         }
 
-        /* MAP PINS */
+        /* SMART PINS (RESPONSIVE) */
         .pin {
             position: absolute;
             transform: translate(-50%, -50%);
-            background-color: rgba(18, 18, 18, 0.92);
+            background-color: var(--badge-bg);
             color: #ffffff;
-            padding: 4px 8px;
+            padding: 3px 7px;
             border-radius: 6px;
-            font-size: 0.75rem;
+            font-size: 0.72rem;
             font-weight: bold;
             border: 1.5px solid var(--gold);
             box-shadow: 0 2px 6px rgba(0,0,0,0.8);
@@ -143,17 +129,44 @@
             transition: transform 0.15s ease, background-color 0.15s ease;
         }
 
-        .pin:hover, .pin.active {
-            transform: translate(-50%, -50%) scale(1.1);
+        .pin:hover, .pin:active {
+            transform: translate(-50%, -50%) scale(1.2);
             background-color: var(--terracotta);
             border-color: #ffffff;
             z-index: 20;
         }
 
-        .pin.vertical {
-            writing-mode: vertical-rl;
-            text-orientation: mixed;
-            padding: 8px 4px;
+        /* MOBILE OPTIMIZATION: CONVERT TO CLEAN COMPACT BADGES */
+        @media (max-width: 650px) {
+            header { flex-direction: column; align-items: stretch; padding: 12px; }
+            .header-titles { text-align: center; margin-bottom: 6px; }
+            .header-actions { width: 100%; justify-content: space-between; }
+            .btn-header { flex: 1; text-align: center; }
+
+            .pin {
+                padding: 4px;
+                border-radius: 50%;
+                width: 26px;
+                height: 26px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 0.85rem;
+                border-width: 1.5px;
+            }
+
+            /* Hide full text on small screens, show only the emoji icon */
+            .pin span.text-label {
+                display: none;
+            }
+        }
+
+        @media (min-width: 651px) {
+            .pin.vertical {
+                writing-mode: vertical-rl;
+                text-orientation: mixed;
+                padding: 7px 3px;
+            }
         }
 
         /* MODAL POPUP */
@@ -212,42 +225,6 @@
             line-height: 1.5;
             color: #333;
         }
-
-        /* MOBILE ADJUSTMENTS */
-        @media (max-width: 600px) {
-            header {
-                flex-direction: column;
-                align-items: stretch;
-                padding: 12px;
-            }
-
-            .header-titles {
-                text-align: center;
-                margin-bottom: 6px;
-            }
-
-            .header-actions {
-                width: 100%;
-                justify-content: space-between;
-            }
-
-            .btn-header {
-                flex: 1;
-                justify-content: center;
-                text-align: center;
-                padding: 10px 8px;
-            }
-
-            .pin {
-                font-size: 0.62rem;
-                padding: 2px 5px;
-                border-width: 1px;
-            }
-
-            .pin.vertical {
-                padding: 5px 2px;
-            }
-        }
     </style>
 </head>
 <body>
@@ -264,12 +241,37 @@
     </header>
 
     <div class="instruction-banner">
-        💡 Tap any pin on the map to view details & activity schedule!
+        💡 Tap any icon on the map to open location details & schedules!
     </div>
 
     <div class="map-wrapper">
-        <div class="map-card" id="mapCard">
+        <div class="map-card">
             <img src="yard-map.jpg" alt="Fall Kickoff Site Map" class="map-img">
+
+            <!-- MOBILE COMPACT PINS -->
+            <div class="pin" style="left:82.2%; top:32.6%;" onclick="openInfo('🎆 Fireworks Launch Zone', 'Grand Finale fireworks show begins at dusk (~8:15 PM)! Please maintain a safe distance.')">🎆 <span class="text-label">Fireworks</span></div>
+            <div class="pin" style="left:82.5%; top:41%;" onclick="openInfo('🚒 Touch-a-Truck', 'Jackson Township Fire Truck on site! Kids can explore from 4:30 PM – 7:00 PM.')">🚒 <span class="text-label">Touch-a-Truck</span></div>
+            <div class="pin" style="left:76.8%; top:47.5%;" onclick="openInfo('📍 Check-In Tent', 'Check in here to collect meal tickets ($5 adult / free kids) and snow cone coins!')">📍 <span class="text-label">Check-In Tent</span></div>
+            <div class="pin" style="left:65.4%; top:56.8%;" onclick="openInfo('🎸 Band Stage (Deck)', 'Live music on the deck by Dream Slice from 5:30 PM to 9:00 PM!')">🎸 <span class="text-label">Band Stage</span></div>
+            <div class="pin" style="left:63.7%; top:61.8%;" onclick="openInfo('☕ Patio Lounge', 'Outdoor seating to relax, eat, and listen to the band.')">☕ <span class="text-label">Patio Lounge</span></div>
+            <div class="pin" style="left:75.5%; top:66.7%;" onclick="openInfo('🔥 Main Fire Pit', 'Main campfire setup for cozy evening warming.')">🔥 <span class="text-label">Fire Pit</span></div>
+            <div class="pin vertical" style="left:83%; top:66.3%;" onclick="openInfo('🎯 Lawn Games', 'Cornhole, giant Jenga, and yard games available all evening!')">🎯 <span class="text-label">Lawn Games</span></div>
+            <div class="pin" style="left:76.8%; top:77.1%;" onclick="openInfo('⛺ Dining Tent', 'Covered seating area to enjoy food and drinks.')">⛺ <span class="text-label">Dining Tent</span></div>
+            <div class="pin vertical" style="left:90%; top:62.1%;" onclick="openInfo('🎨 Kids Crafts', 'Craft and coloring table set up for kids!')">🎨 <span class="text-label">Kids Crafts</span></div>
+            <div class="pin" style="left:72.9%; top:87.4%;" onclick="openInfo('🏰 Bounce House Alley', 'Bounce houses open for kids from 4:00 PM until dusk!')">🏰 <span class="text-label">Bounce Alley</span></div>
+            <div class="pin vertical" style="left:90%; top:72.2%;" onclick="openInfo('🚚 Vendor Row / Food', 'Porkopolis BBQ, chili station, and drinks on tap!')">🚚 <span class="text-label">Food & Drinks</span></div>
+            <div class="pin" style="left:71.4%; top:95%;" onclick="openInfo('🎃 Pumpkin Patch', 'Pick a pumpkin to decorate or take home!')">🎃 <span class="text-label">Pumpkin Patch</span></div>
+            <div class="pin vertical" style="left:53.6%; top:70.5%;" onclick="openInfo('🍫 Trail Smores Fire', 'Trail fire pit stocked with S\'mores supplies!')">🍫 <span class="text-label">S'mores Fire</span></div>
+            <div class="pin" style="left:54.3%; top:94%;" onclick="openInfo('🚜 Hayride Route', 'Tractor-drawn hayride running continuously from 4:30 PM until dusk.')">🚜 <span class="text-label">Hayride Route</span></div>
+            <div class="pin vertical" style="left:85.7%; top:55.4%;" onclick="openInfo('🚻 Restrooms', 'Restroom facilities located here.')">🚻 <span class="text-label">Restrooms</span></div>
+            <div class="pin" style="left:19.2%; top:32.2%;" onclick="openInfo('🚗 One Row Parking', 'Single row parking along Sweetgrass Lane.')">🚗 <span class="text-label">Single Row Parking</span></div>
+            <div class="pin" style="left:4.9%; top:37.8%;" onclick="openInfo('🚗 One Row Parking', 'Single row parking along Sweetgrass Lane.')">🚗 <span class="text-label">Single Row Parking</span></div>
+            <div class="pin" style="left:54.3%; top:41.5%;" onclick="openInfo('🚗 4-Row Parking Area', 'Main parking area. Please park close together in 4 rows.')">🚗 <span class="text-label">4-Row Parking</span></div>
+            <div class="pin vertical" style="left:90%; top:81.6%;" onclick="openInfo('🚜 Hayride Boarding', 'Board the hayride here!')">🚜 <span class="text-label">Hayride Pickup</span></div>
+            <div class="pin" style="left:71.6%; top:91.2%;" onclick="openInfo('🌙 After Party Area', 'Post-fireworks gathering around the deck fire pits!')">🌙 <span class="text-label">After Party</span></div>
+            <div class="pin vertical" style="left:66.5%; top:66.3%;" onclick="openInfo('🧸 Toddler Bounce', 'Dedicated safe bounce area for toddlers.')">🧸 <span class="text-label">Toddler Bounce</span></div>
+            <div class="pin" style="left:69.9%; top:43.8%;" onclick="openInfo('⚽ Sports Field', 'Open grass field for football and soccer.')">⚽ <span class="text-label">Sports Field</span></div>
+
         </div>
     </div>
 
@@ -283,47 +285,6 @@
     </div>
 
     <script>
-        const pinData = [
-            { "label": "🎆 Fireworks Launch Zone", "x": "82.2%", "y": "32.6%", "orientation": "horizontal", "desc": "Grand Finale fireworks show begins at dusk (~8:15 PM)! Please maintain a safe distance." },
-            { "label": "🚒 Touch-a-Truck", "x": "82.5%", "y": "41%", "orientation": "horizontal", "desc": "Jackson Township Fire Truck on site! Kids can explore from 4:30 PM – 7:00 PM." },
-            { "label": "📍 Check-In Tent", "x": "76.8%", "y": "47.5%", "orientation": "horizontal", "desc": "Check in here to collect meal tickets ($5 adult / free kids) and snow cone coins!" },
-            { "label": "🎸 Band Stage (Deck)", "x": "65.4%", "y": "56.8%", "orientation": "horizontal", "desc": "Live music on the deck by Dream Slice from 5:30 PM to 9:00 PM!" },
-            { "label": "Patio Lounge", "x": "63.7%", "y": "61.8%", "orientation": "horizontal", "desc": "Outdoor seating to relax, eat, and listen to the band." },
-            { "label": "🔥 Fire", "x": "75.5%", "y": "66.7%", "orientation": "horizontal", "desc": "Main campfire setup for cozy evening warming." },
-            { "label": "🎯 Lawn Games", "x": "83%", "y": "66.3%", "orientation": "vertical", "desc": "Cornhole, giant Jenga, and yard games available all evening!" },
-            { "label": "⛺ Dining Tent", "x": "76.8%", "y": "77.1%", "orientation": "horizontal", "desc": "Covered seating area to enjoy food and drinks." },
-            { "label": "🎨 Kids Coloring", "x": "90%", "y": "62.1%", "orientation": "vertical", "desc": "Craft and coloring table set up for kids!" },
-            { "label": "🏰 Bounce House Alley", "x": "72.9%", "y": "87.4%", "orientation": "horizontal", "desc": "Bounce houses open for kids from 4:00 PM until dusk!" },
-            { "label": "🚚 Vendor Row", "x": "90%", "y": "72.2%", "orientation": "vertical", "desc": "Porkopolis BBQ, chili station, and drinks on tap!" },
-            { "label": "🎃 Pumpkin Patch", "x": "71.4%", "y": "95%", "orientation": "horizontal", "desc": "Pick a pumpkin to decorate or take home!" },
-            { "label": "🔥 Trail Fire Pit/Smores", "x": "53.6%", "y": "70.5%", "orientation": "vertical", "desc": "Trail fire pit stocked with S'mores supplies!" },
-            { "label": "🚜 Hayride Route", "x": "54.3%", "y": "94%", "orientation": "horizontal", "desc": "Tractor-drawn hayride running continuously from 4:30 PM until dusk." },
-            { "label": "Bathrooms", "x": "85.7%", "y": "55.4%", "orientation": "vertical", "desc": "Restroom facilities located here." },
-            { "label": "🚗 One Row Parking Please", "x": "19.2%", "y": "32.2%", "orientation": "horizontal", "desc": "Single row parking along Sweetgrass Lane." },
-            { "label": "🚗 One Row Parking Please", "x": "4.9%", "y": "37.8%", "orientation": "horizontal", "desc": "Single row parking along Sweetgrass Lane." },
-            { "label": "🚗 4 Row Parking", "x": "54.3%", "y": "41.5%", "orientation": "horizontal", "desc": "Main parking area. Please park close together in 4 rows." },
-            { "label": "🚜 Hayride Pickup", "x": "90%", "y": "81.6%", "orientation": "vertical", "desc": "Board the hayride here!" },
-            { "label": "After Party", "x": "71.6%", "y": "91.2%", "orientation": "horizontal", "desc": "Post-fireworks gathering around the deck fire pits!" },
-            { "label": "🏰 Toddler Bounce House", "x": "66.5%", "y": "66.3%", "orientation": "vertical", "desc": "Dedicated safe bounce area for toddlers." },
-            { "label": "Soccer/Football", "x": "69.9%", "y": "43.8%", "orientation": "horizontal", "desc": "Open grass field for football and soccer." }
-        ];
-
-        const mapCard = document.getElementById('mapCard');
-
-        pinData.forEach(item => {
-            const pin = document.createElement('div');
-            pin.className = `pin ${item.orientation === 'vertical' ? 'vertical' : ''}`;
-            pin.style.left = item.x;
-            pin.style.top = item.y;
-            pin.innerText = item.label;
-
-            pin.onclick = (e) => {
-                e.stopPropagation();
-                openInfo(item.label, item.desc);
-            };
-            mapCard.appendChild(pin);
-        });
-
         function openInfo(title, desc) {
             document.getElementById('modalTitle').innerText = title;
             document.getElementById('modalBody').innerText = desc;

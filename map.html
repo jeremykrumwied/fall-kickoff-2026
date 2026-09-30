@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>9th Annual Fall Kickoff - Official Site Map</title>
+    <style>
+        :root {
+            --dark-bg: #141414;
+            --card-bg: #222222;
+            --accent-gold: #c9933b;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--dark-bg);
+            color: #ffffff;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        header {
+            width: 100%;
+            max-width: 1000px;
+            background: #1e1e1e;
+            border-bottom: 3px solid var(--accent-gold);
+            padding: 14px 20px;
+            border-radius: 8px 8px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        header h1 {
+            font-size: 1.4rem;
+            color: #f4a261;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        header p {
+            font-size: 0.85rem;
+            color: #bbb;
+        }
+
+        .controls-bar {
+            width: 100%;
+            max-width: 1000px;
+            background: #2a2a2a;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #333;
+        }
+
+        .btn-upload {
+            background: #0077b6;
+            color: #fff;
+            padding: 6px 14px;
+            border-radius: 4px;
+            font-weight: bold;
+            font-size: 0.82rem;
+            cursor: pointer;
+            border: none;
+        }
+
+        /* MAP CONTAINER */
+        #mapCard {
+            position: relative;
+            width: 100%;
+            max-width: 1000px;
+            background: #1a1a1a;
+            border-radius: 0 0 8px 8px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.6);
+            min-height: 400px;
+        }
+
+        #bgImage {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .placeholder-box {
+            padding: 60px 20px;
+            text-align: center;
+            color: #888;
+        }
+
+        /* PIN STYLING */
+        .pin {
+            position: absolute;
+            background: rgba(0, 0, 0, 0.88);
+            color: #ffffff;
+            border: 2px solid #f4a261;
+            padding: 5px 10px;
+            border-radius: 16px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            white-space: nowrap;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.7);
+            z-index: 10;
+            pointer-events: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .pin.vertical {
+            writing-mode: vertical-rl;
+            text-orientation: mixed;
+            transform: rotate(180deg);
+            padding: 10px 5px;
+        }
+
+        /* COLOR CATEGORY OVERRIDES */
+        .pin-red { border-color: #e63946; background: rgba(183, 28, 28, 0.92); }
+        .pin-green { border-color: #2a9d8f; background: rgba(20, 90, 80, 0.92); }
+        .pin-blue { border-color: #00b4d8; background: rgba(2, 62, 138, 0.92); }
+        .pin-orange { border-color: #f4a261; background: rgba(180, 83, 9, 0.92); }
+        .pin-purple { border-color: #a855f7; background: rgba(88, 28, 135, 0.92); }
+
+        @media print {
+            body { background: #fff; color: #000; padding: 0; }
+            .controls-bar { display: none; }
+            #mapCard { box-shadow: none; max-width: 100%; }
+            .pin { box-shadow: none; border-width: 1.5px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div>
+            <h1>9th Annual Fall Kickoff Site Map</h1>
+            <p>6825 Sweetgrass Lane • Event Layout Plan</p>
+        </div>
+        <button class="btn-upload" onclick="window.print()">🖨️ Print / Save PDF</button>
+    </header>
+
+    <div class="controls-bar">
+        <span style="font-size: 0.82rem; color: #ccc;">📷 Select your yard photo to display background:</span>
+        <label class="btn-upload">
+            Load Image File
+            <input type="file" id="imageUploader" accept="image/*" style="display:none;">
+        </label>
+    </div>
+
+    <div id="mapCard">
+        <div id="placeholder" class="placeholder-box">
+            <p><b>No image loaded yet.</b></p>
+            <p style="font-size: 0.85rem; margin-top: 5px;">
+                Tap <b>"Load Image File"</b> above to choose your aerial yard picture, or name your image <b><code>yard-map.jpg</code></b> in the same folder.
+            </p>
+        </div>
+        <img id="bgImage" src="yard-map.jpg" onerror="this.style.display='none';" onload="document.getElementById('placeholder').style.display='none'; this.style.display='block';" />
+    </div>
+
+    <script>
+        // Exact pin positions saved from your custom layout builder
+        const pinsData = [
+            { "label": "🎆 Fireworks Launch Zone", "x": "82.2%", "y": "32.6%", "orientation": "horizontal" },
+            { "label": "🚒 Touch-a-Truck", "x": "82.5%", "y": "41%", "orientation": "horizontal" },
+            { "label": "📍 Check-In Tent", "x": "76.8%", "y": "47.5%", "orientation": "horizontal" },
+            { "label": "🎸 Band Stage (Deck)", "x": "65.4%", "y": "56.8%", "orientation": "horizontal" },
+            { "label": "Patio Lounge", "x": "63.7%", "y": "61.8%", "orientation": "horizontal" },
+            { "label": "🔥Fire", "x": "75.5%", "y": "66.7%", "orientation": "horizontal" },
+            { "label": "🎯 Lawn Games", "x": "83%", "y": "66.3%", "orientation": "vertical" },
+            { "label": "⛺ Dining Tent", "x": "76.8%", "y": "77.1%", "orientation": "horizontal" },
+            { "label": "🎨 Kids Coloring", "x": "90%", "y": "62.1%", "orientation": "vertical" },
+            { "label": "🏰 Bounce House Alley", "x": "72.9%", "y": "87.4%", "orientation": "horizontal" },
+            { "label": "🚚 Vendor Row", "x": "90%", "y": "72.2%", "orientation": "vertical" },
+            { "label": "🎃 Pumpkin Patch", "x": "71.4%", "y": "95%", "orientation": "horizontal" },
+            { "label": "🔥 Trail Fire Pit/Smores", "x": "53.6%", "y": "70.5%", "orientation": "vertical" },
+            { "label": "🚜 Hayride Route", "x": "54.3%", "y": "94%", "orientation": "horizontal" },
+            { "label": "Bathrooms", "x": "85.7%", "y": "55.4%", "orientation": "vertical" },
+            { "label": "🚒 One Row Parking Please", "x": "19.2%", "y": "32.2%", "orientation": "horizontal" },
+            { "label": "🚒 One Row Parking Please", "x": "4.9%", "y": "37.8%", "orientation": "horizontal" },
+            { "label": "🚒 4 Row Parking", "x": "54.3%", "y": "41.5%", "orientation": "horizontal" },
+            { "label": "🚜 Hayride Pickup", "x": "90%", "y": "81.6%", "orientation": "vertical" },
+            { "label": "After Party", "x": "71.6%", "y": "91.2%", "orientation": "horizontal" },
+            { "label": "🏰 Toddler Bounce House", "x": "66.5%", "y": "66.3%", "orientation": "vertical" },
+            { "label": "Soccer/Football", "x": "69.9%", "y": "43.8%", "orientation": "horizontal" }
+        ];
+
+        const mapCard = document.getElementById('mapCard');
+        const bgImage = document.getElementById('bgImage');
+        const uploader = document.getElementById('imageUploader');
+        const placeholder = document.getElementById('placeholder');
+
+        // Render all pins
+        function renderPins() {
+            pinsData.forEach(p => {
+                const pin = document.createElement('div');
+                let colorClass = getCategoryClass(p.label);
+                
+                pin.className = `pin ${p.orientation} ${colorClass}`;
+                pin.innerText = p.label;
+                pin.style.left = p.x;
+                pin.style.top = p.y;
+
+                mapCard.appendChild(pin);
+            });
+        }
+
+        // Auto color-coding based on label text
+        function getCategoryClass(label) {
+            const txt = label.toLowerCase();
+            if (txt.includes('fireworks') || txt.includes('touch-a-truck') || txt.includes('fire')) return 'pin-red';
+            if (txt.includes('parking')) return 'pin-green';
+            if (txt.includes('bounce') || txt.includes('coloring') || txt.includes('soccer') || txt.includes('lawn')) return 'pin-blue';
+            if (txt.includes('vendor') || txt.includes('dining') || txt.includes('pumpkin')) return 'pin-orange';
+            if (txt.includes('check-in') || txt.includes('bathrooms') || txt.includes('band')) return 'pin-purple';
+            return '';
+        }
+
+        // Local file reader handler
+        uploader.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (evt) => {
+                    bgImage.src = evt.target.result;
+                    bgImage.style.display = 'block';
+                    placeholder.style.display = 'none';
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // Initialize pins
+        renderPins();
+    </script>
+</body>
+</html>

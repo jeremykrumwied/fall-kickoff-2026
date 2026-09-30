@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-    <title>9th Annual Fall Kickoff Site Map</title>
+    <title>9th Annual Fall Kickoff - Interactive Site Map</title>
     <style>
         :root {
             --terracotta: #a35d47;
@@ -89,10 +89,6 @@
             border: 1px solid #555;
         }
 
-        .btn-secondary:hover {
-            background-color: #444;
-        }
-
         .instruction-banner {
             width: 100%;
             text-align: center;
@@ -113,6 +109,7 @@
         }
 
         .map-card {
+            position: relative;
             width: 100%;
             border: 2px solid var(--gold);
             border-radius: 8px;
@@ -125,7 +122,95 @@
             width: 100%;
             height: auto;
             display: block;
+        }
+
+        /* MAP PINS */
+        .pin {
+            position: absolute;
+            transform: translate(-50%, -50%);
+            background-color: rgba(18, 18, 18, 0.92);
+            color: #ffffff;
+            padding: 4px 8px;
             border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            border: 1.5px solid var(--gold);
+            box-shadow: 0 2px 6px rgba(0,0,0,0.8);
+            white-space: nowrap;
+            cursor: pointer;
+            z-index: 5;
+            user-select: none;
+            transition: transform 0.15s ease, background-color 0.15s ease;
+        }
+
+        .pin:hover, .pin.active {
+            transform: translate(-50%, -50%) scale(1.1);
+            background-color: var(--terracotta);
+            border-color: #ffffff;
+            z-index: 20;
+        }
+
+        .pin.vertical {
+            writing-mode: vertical-rl;
+            text-orientation: mixed;
+            padding: 8px 4px;
+        }
+
+        /* MODAL POPUP */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0, 0, 0, 0.75);
+            z-index: 100;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .modal-overlay.active { display: flex; }
+
+        .modal-card {
+            background-color: var(--cream);
+            color: #222;
+            max-width: 420px;
+            width: 100%;
+            border-radius: 8px;
+            padding: 20px;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            border: 2px solid var(--terracotta);
+            animation: pop 0.2s ease-out;
+        }
+
+        @keyframes pop {
+            from { transform: scale(0.9); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 8px; right: 12px;
+            font-size: 1.5rem;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #777;
+        }
+
+        .close-btn:hover { color: #000; }
+
+        .modal-title {
+            color: var(--terracotta);
+            font-size: 1.15rem;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .modal-body {
+            font-size: 0.95rem;
+            line-height: 1.5;
+            color: #333;
         }
 
         /* MOBILE ADJUSTMENTS */
@@ -152,6 +237,16 @@
                 text-align: center;
                 padding: 10px 8px;
             }
+
+            .pin {
+                font-size: 0.62rem;
+                padding: 2px 5px;
+                border-width: 1px;
+            }
+
+            .pin.vertical {
+                padding: 5px 2px;
+            }
         }
     </style>
 </head>
@@ -160,7 +255,7 @@
     <header>
         <div class="header-titles">
             <h1>9th Annual Fall Kickoff</h1>
-            <p>6825 Sweetgrass Lane • Site Layout Plan</p>
+            <p>6825 Sweetgrass Lane • Interactive Site Map</p>
         </div>
         <div class="header-actions">
             <a href="index.html" class="btn-header btn-secondary">📜 Back to Invitation</a>
@@ -169,14 +264,81 @@
     </header>
 
     <div class="instruction-banner">
-        🔍 Tip: Pinch or double-tap the map on mobile to zoom in on activity zones!
+        💡 Tap any pin on the map to view details & activity schedule!
     </div>
 
     <div class="map-wrapper">
-        <div class="map-card">
+        <div class="map-card" id="mapCard">
             <img src="yard-map.jpg" alt="Fall Kickoff Site Map" class="map-img">
         </div>
     </div>
 
+    <!-- DETAIL POPUP MODAL -->
+    <div class="modal-overlay" id="modalOverlay" onclick="closeInfo(event)">
+        <div class="modal-card">
+            <button class="close-btn" onclick="forceCloseInfo()">&times;</button>
+            <div class="modal-title" id="modalTitle">Pin Details</div>
+            <div class="modal-body" id="modalBody">Details...</div>
+        </div>
+    </div>
+
+    <script>
+        const pinData = [
+            { "label": "🎆 Fireworks Launch Zone", "x": "82.2%", "y": "32.6%", "orientation": "horizontal", "desc": "Grand Finale fireworks show begins at dusk (~8:15 PM)! Please maintain a safe distance." },
+            { "label": "🚒 Touch-a-Truck", "x": "82.5%", "y": "41%", "orientation": "horizontal", "desc": "Jackson Township Fire Truck on site! Kids can explore from 4:30 PM – 7:00 PM." },
+            { "label": "📍 Check-In Tent", "x": "76.8%", "y": "47.5%", "orientation": "horizontal", "desc": "Check in here to collect meal tickets ($5 adult / free kids) and snow cone coins!" },
+            { "label": "🎸 Band Stage (Deck)", "x": "65.4%", "y": "56.8%", "orientation": "horizontal", "desc": "Live music on the deck by Dream Slice from 5:30 PM to 9:00 PM!" },
+            { "label": "Patio Lounge", "x": "63.7%", "y": "61.8%", "orientation": "horizontal", "desc": "Outdoor seating to relax, eat, and listen to the band." },
+            { "label": "🔥 Fire", "x": "75.5%", "y": "66.7%", "orientation": "horizontal", "desc": "Main campfire setup for cozy evening warming." },
+            { "label": "🎯 Lawn Games", "x": "83%", "y": "66.3%", "orientation": "vertical", "desc": "Cornhole, giant Jenga, and yard games available all evening!" },
+            { "label": "⛺ Dining Tent", "x": "76.8%", "y": "77.1%", "orientation": "horizontal", "desc": "Covered seating area to enjoy food and drinks." },
+            { "label": "🎨 Kids Coloring", "x": "90%", "y": "62.1%", "orientation": "vertical", "desc": "Craft and coloring table set up for kids!" },
+            { "label": "🏰 Bounce House Alley", "x": "72.9%", "y": "87.4%", "orientation": "horizontal", "desc": "Bounce houses open for kids from 4:00 PM until dusk!" },
+            { "label": "🚚 Vendor Row", "x": "90%", "y": "72.2%", "orientation": "vertical", "desc": "Porkopolis BBQ, chili station, and drinks on tap!" },
+            { "label": "🎃 Pumpkin Patch", "x": "71.4%", "y": "95%", "orientation": "horizontal", "desc": "Pick a pumpkin to decorate or take home!" },
+            { "label": "🔥 Trail Fire Pit/Smores", "x": "53.6%", "y": "70.5%", "orientation": "vertical", "desc": "Trail fire pit stocked with S'mores supplies!" },
+            { "label": "🚜 Hayride Route", "x": "54.3%", "y": "94%", "orientation": "horizontal", "desc": "Tractor-drawn hayride running continuously from 4:30 PM until dusk." },
+            { "label": "Bathrooms", "x": "85.7%", "y": "55.4%", "orientation": "vertical", "desc": "Restroom facilities located here." },
+            { "label": "🚗 One Row Parking Please", "x": "19.2%", "y": "32.2%", "orientation": "horizontal", "desc": "Single row parking along Sweetgrass Lane." },
+            { "label": "🚗 One Row Parking Please", "x": "4.9%", "y": "37.8%", "orientation": "horizontal", "desc": "Single row parking along Sweetgrass Lane." },
+            { "label": "🚗 4 Row Parking", "x": "54.3%", "y": "41.5%", "orientation": "horizontal", "desc": "Main parking area. Please park close together in 4 rows." },
+            { "label": "🚜 Hayride Pickup", "x": "90%", "y": "81.6%", "orientation": "vertical", "desc": "Board the hayride here!" },
+            { "label": "After Party", "x": "71.6%", "y": "91.2%", "orientation": "horizontal", "desc": "Post-fireworks gathering around the deck fire pits!" },
+            { "label": "🏰 Toddler Bounce House", "x": "66.5%", "y": "66.3%", "orientation": "vertical", "desc": "Dedicated safe bounce area for toddlers." },
+            { "label": "Soccer/Football", "x": "69.9%", "y": "43.8%", "orientation": "horizontal", "desc": "Open grass field for football and soccer." }
+        ];
+
+        const mapCard = document.getElementById('mapCard');
+
+        pinData.forEach(item => {
+            const pin = document.createElement('div');
+            pin.className = `pin ${item.orientation === 'vertical' ? 'vertical' : ''}`;
+            pin.style.left = item.x;
+            pin.style.top = item.y;
+            pin.innerText = item.label;
+
+            pin.onclick = (e) => {
+                e.stopPropagation();
+                openInfo(item.label, item.desc);
+            };
+            mapCard.appendChild(pin);
+        });
+
+        function openInfo(title, desc) {
+            document.getElementById('modalTitle').innerText = title;
+            document.getElementById('modalBody').innerText = desc;
+            document.getElementById('modalOverlay').classList.add('active');
+        }
+
+        function closeInfo(e) {
+            if (e.target.id === 'modalOverlay') {
+                document.getElementById('modalOverlay').classList.remove('active');
+            }
+        }
+
+        function forceCloseInfo() {
+            document.getElementById('modalOverlay').classList.remove('active');
+        }
+    </script>
 </body>
 </html>

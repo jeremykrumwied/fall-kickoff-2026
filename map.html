@@ -3,33 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>9th Annual Fall Kickoff - Interactive Site Map</title>
+    <title>9th Annual Fall Kickoff Site Map</title>
     <style>
         :root {
             --terracotta: #a35d47;
             --cream: #f7f7f3;
-            --dark: #2d2d2d;
+            --dark-charcoal: #2d2d2d;
             --gold: #c9933b;
         }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            background-color: #1e1e1e;
-            color: #fff;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            min-height: 100vh;
-            padding: 20px 10px;
+            background-color: #121212;
+            color: #ffffff;
+            line-height: 1.4;
         }
 
         header {
-            text-align: center;
-            margin-bottom: 15px;
-            width: 100%;
-            max-width: 1000px;
+            background-color: #1e1e1e;
+            padding: 12px 20px;
+            border-bottom: 2px solid var(--gold);
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -37,242 +36,105 @@
             gap: 10px;
         }
 
-        .title-container h1 {
+        .header-titles h1 {
             color: var(--gold);
-            font-size: 1.6rem;
+            font-size: 1.3rem;
             text-transform: uppercase;
             letter-spacing: 1px;
         }
 
-        .title-container p {
-            color: #bbb;
-            font-size: 0.95rem;
+        .header-titles p {
+            color: #aaa;
+            font-size: 0.85rem;
         }
 
-        .nav-btn {
+        .header-actions {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .btn-header {
             background-color: var(--terracotta);
             color: #fff;
-            padding: 8px 16px;
-            text-decoration: none;
+            padding: 8px 14px;
             border-radius: 4px;
+            text-decoration: none;
             font-weight: bold;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
+            border: none;
+            cursor: pointer;
             transition: background 0.2s;
         }
 
-        .nav-btn:hover {
+        .btn-header:hover {
             background-color: #8c4c37;
         }
 
-        .map-wrapper {
+        .btn-secondary {
+            background-color: #333;
+            border: 1px solid #555;
+        }
+
+        .btn-secondary:hover {
+            background-color: #444;
+        }
+
+        #mapContainer {
             position: relative;
-            width: 100%;
-            max-width: 1000px;
-            border: 3px solid var(--gold);
-            border-radius: 8px;
+            max-width: 1200px;
+            margin: 20px auto;
+            border: 2px solid #333;
+            border-radius: 6px;
             overflow: hidden;
-            box-shadow: 0 8px 24px rgba(0,0,0,0.5);
-            background-color: #222;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.6);
+            background-color: #1a1a1a;
         }
 
-        .map-bg {
+        #siteMapImage {
             width: 100%;
-            display: block;
             height: auto;
+            display: block;
         }
 
-        /* INTERACTIVE HOTSPOTS */
-        .hotspot {
+        /* Tooltip styling for pins */
+        .map-pin {
             position: absolute;
             transform: translate(-50%, -50%);
             cursor: pointer;
             z-index: 10;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
 
-        .hotspot:hover {
-            transform: translate(-50%, -50%) scale(1.1);
-            z-index: 20;
-        }
-
-        .pin-label {
-            background-color: rgba(0, 0, 0, 0.85);
-            color: #fff;
-            padding: 5px 10px;
-            border-radius: 15px;
-            font-size: 0.8rem;
-            font-weight: bold;
-            white-space: nowrap;
-            border: 1.5px solid var(--gold);
-            box-shadow: 0 2px 8px rgba(0,0,0,0.4);
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-
-        /* POPUP MODAL CARD */
-        .modal-overlay {
-            display: none;
-            position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(0,0,0,0.75);
-            z-index: 100;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
-
-        .modal-overlay.active { display: flex; }
-
-        .modal-card {
-            background-color: var(--cream);
-            color: var(--dark);
-            max-width: 450px;
-            width: 100%;
-            border-radius: 8px;
-            padding: 25px;
-            position: relative;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            border: 2px solid var(--terracotta);
-            animation: popIn 0.2s ease-out;
-        }
-
-        @keyframes popIn {
-            from { transform: scale(0.9); opacity: 0; }
-            to { transform: scale(1); opacity: 1; }
-        }
-
-        .close-btn {
-            position: absolute;
-            top: 10px; right: 15px;
-            font-size: 1.8rem;
-            background: none;
-            border: none;
-            cursor: pointer;
-            color: #888;
-        }
-
-        .close-btn:hover { color: #000; }
-
-        .modal-title {
-            color: var(--terracotta);
-            font-size: 1.3rem;
-            margin-bottom: 8px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .modal-body {
-            font-size: 1rem;
-            line-height: 1.5;
-            color: #333;
-        }
-
-        .modal-time {
-            display: inline-block;
-            background-color: #e8e4d9;
-            color: var(--terracotta);
-            font-size: 0.85rem;
-            font-weight: bold;
-            padding: 3px 8px;
-            border-radius: 4px;
-            margin-bottom: 12px;
-        }
-
-        .instruction-banner {
-            background-color: #2a2a2a;
-            color: #ddd;
-            padding: 8px 15px;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            margin-bottom: 15px;
-            border: 1px solid #444;
+        .map-pin:hover {
+            z-index: 30;
         }
     </style>
 </head>
 <body>
 
     <header>
-        <div class="title-container">
-            <h1>🗺️ Interactive Event Site Map</h1>
-            <p>6825 Sweetgrass Lane • 9th Annual Fall Kickoff</p>
+        <div class="header-titles">
+            <h1>9TH ANNUAL FALL KICKOFF SITE MAP</h1>
+            <p>6825 Sweetgrass Lane • Event Layout Plan</p>
         </div>
-        <a href="./index.html" class="nav-btn">📜 Back to Invitation</a>
+        <div class="header-actions">
+            <a href="./index.html" class="btn-header btn-secondary">📜 Back to Invitation</a>
+            <button class="btn-header" onclick="window.print()">🖨️ Print / Save PDF</button>
+        </div>
     </header>
 
-    <div class="instruction-banner">
-        💡 Click on any location marker on the map to see schedule details & activity info!
-    </div>
-
-    <div class="map-wrapper">
-        <img src="./yard-map.jpg" alt="Fall Kickoff Yard Map" class="map-bg">
-
-        <!-- INTERACTIVE HOTSPOTS (Positioned over yard map) -->
-        
-        <!-- Check-In Tent -->
-        <div class="hotspot" style="top: 80%; left: 81%;" onclick="openInfo('Check-In Tent (Maid Right)', '4:00 PM – Onward', '🎟️ Pick up your adult meal tickets, free kids meal passes, and snow cone tokens here!')">
-            <div class="pin-label">⛺ Check-In Tent</div>
-        </div>
-
-        <!-- Touch-A-Truck -->
-        <div class="hotspot" style="top: 71%; left: 83%;" onclick="openInfo('Jackson Twp Fire Truck', '4:30 PM – 7:00 PM', '🚒 Special Feature! Kids can explore a real Jackson Township Fire Truck on site!')">
-            <div class="pin-label">🚒 Touch-a-Truck</div>
-        </div>
-
-        <!-- 4-Row Parking -->
-        <div class="hotspot" style="top: 72%; left: 60%;" onclick="openInfo('Main Parking Zone', 'All Day', '🚗 Designated 4-Row Parking area. Please follow signs and park close together!')">
-            <div class="pin-label" style="border-color: #4CAF50;">🅿️ Main Parking</div>
-        </div>
-
-        <!-- Soccer/Football Zone -->
-        <div class="hotspot" style="top: 75%; left: 73%;" onclick="openInfo('Soccer & Football Zone', '4:00 PM – Dusk', '⚽ Open field space for kids and adults to play soccer, football, and outdoor yard games!')">
-            <div class="pin-label">⚽ Games Field</div>
-        </div>
-
-        <!-- Band Stage Deck -->
-        <div class="hotspot" style="top: 92%; left: 71%;" onclick="openInfo('Band Stage & Deck', '5:30 PM – 9:00 PM', '🎸 Live Music featuring Dream Slice performing live on the main deck stage!')">
-            <div class="pin-label">🎸 Live Band Stage</div>
-        </div>
-
-        <!-- Fireworks Launch Zone -->
-        <div class="hotspot" style="top: 61%; left: 82%;" onclick="openInfo('Fireworks Launch Zone', 'At Dusk (~8:15 PM)', '🎆 Grand Finale Fireworks Show! Safe viewing area set up along the yard.')">
-            <div class="pin-label">🎆 Fireworks Zone</div>
-        </div>
-
-        <!-- Food Truck & Chili -->
-        <div class="hotspot" style="top: 88%; left: 60%;" onclick="openInfo('Porkopolis Food Truck & Chili', '4:00 PM – Until Gone', '🍖 Delicious Porkopolis BBQ, homemade chili, drinks, and beers on tap!')">
-            <div class="pin-label">🍔 Food Truck</div>
-        </div>
-    </div>
-
-    <!-- MODAL POPUP DISPLAY -->
-    <div class="modal-overlay" id="modalOverlay" onclick="closeInfo(event)">
-        <div class="modal-card">
-            <button class="close-btn" onclick="forceCloseInfo()">&times;</button>
-            <div class="modal-title" id="modalTitle">Location Name</div>
-            <div class="modal-time" id="modalTime">Time Range</div>
-            <div class="modal-body" id="modalBody">Details about this zone...</div>
-        </div>
+    <div id="mapContainer">
+        <img id="siteMapImage" src="./yard-map.jpg" alt="Fall Kickoff Yard Map Layout" />
     </div>
 
     <script>
-        function openInfo(title, time, body) {
-            document.getElementById('modalTitle').innerText = title;
-            document.getElementById('modalTime').innerText = time;
-            document.getElementById('modalBody').innerText = body;
-            document.getElementById('modalOverlay').classList.add('active');
-        }
-
-        function closeInfo(e) {
-            if (e.target.id === 'modalOverlay') {
-                document.getElementById('modalOverlay').classList.remove('active');
+        // Automatic image loader verification
+        window.addEventListener('load', () => {
+            const img = document.getElementById('siteMapImage');
+            if (img && !img.complete) {
+                img.src = './yard-map.jpg?v=' + new Date().getTime();
             }
-        }
-
-        function forceCloseInfo() {
-            document.getElementById('modalOverlay').classList.remove('active');
-        }
+        });
     </script>
 </body>
 </html>

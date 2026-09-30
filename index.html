@@ -3,319 +3,282 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>9th Annual Fall Kickoff - Interactive Site Map</title>
+    <title>9th Annual Fall Kickoff - Invitation</title>
     <style>
         :root {
             --terracotta: #a35d47;
             --cream: #f7f7f3;
-            --dark: #121212;
+            --dark-charcoal: #2d2d2d;
             --gold: #c9933b;
-            --green: #2e7d32;
-            --blue: #1565c0;
-            --purple: #6a1b9a;
-            --red: #c62828;
+            --light-gold: #f4ece1;
         }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            background-color: var(--dark);
-            color: #ffffff;
-            line-height: 1.4;
+            font-family: Georgia, serif;
+            background-color: #1a1a1a;
+            color: var(--dark-charcoal);
+            padding: 20px 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             min-height: 100vh;
-            display: flex;
-            flex-direction: column;
         }
 
-        header {
-            background-color: #1e1e1e;
-            padding: 10px 16px;
-            border-bottom: 2px solid var(--gold);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 10px;
-            z-index: 20;
+        .card {
+            background-color: var(--cream);
+            border: 4px double var(--terracotta);
+            border-radius: 8px;
+            max-width: 680px;
+            width: 100%;
+            padding: 35px 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            text-align: center;
         }
 
-        .header-titles h1 {
-            color: var(--gold);
-            font-size: 1.1rem;
+        .leaf-icon {
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+        }
+
+        .subtitle-top {
+            font-size: 0.85rem;
+            letter-spacing: 2px;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
+            color: var(--terracotta);
+            margin-bottom: 10px;
         }
 
-        .header-titles p {
-            color: #aaa;
-            font-size: 0.75rem;
+        h1 {
+            font-size: 2.2rem;
+            color: var(--terracotta);
+            line-height: 1.15;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+            font-weight: normal;
+            letter-spacing: 1px;
         }
 
-        .header-actions {
-            display: flex;
-            gap: 8px;
-            align-items: center;
+        .date-location {
+            font-size: 1rem;
+            font-weight: bold;
+            color: var(--terracotta);
+            margin-bottom: 6px;
         }
 
-        .btn {
-            background-color: var(--terracotta);
-            color: #fff;
-            padding: 8px 12px;
+        .address {
+            font-style: italic;
+            font-size: 0.95rem;
+            color: #555;
+            margin-bottom: 25px;
+        }
+
+        /* SITE MAP CALLOUT BOX */
+        .map-callout {
+            background-color: var(--light-gold);
+            border: 1.5px solid var(--gold);
             border-radius: 6px;
+            padding: 16px;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .map-callout h3 {
+            color: var(--terracotta);
+            font-size: 1rem;
+            margin-bottom: 6px;
+        }
+
+        .map-callout p {
+            font-size: 0.85rem;
+            color: #555;
+            margin-bottom: 12px;
+            line-height: 1.3;
+        }
+
+        .btn-map {
+            display: inline-block;
+            background-color: var(--terracotta);
+            color: #ffffff;
+            padding: 10px 18px;
+            border-radius: 4px;
             text-decoration: none;
             font-weight: bold;
-            font-size: 0.8rem;
-            border: none;
-            cursor: pointer;
-            white-space: nowrap;
+            font-size: 0.85rem;
+            letter-spacing: 0.5px;
+            transition: background 0.2s;
+            text-transform: uppercase;
         }
 
-        .btn-sec {
-            background-color: #333;
-            border: 1px solid #555;
+        .btn-map:hover {
+            background-color: #8c4c37;
         }
 
-        .banner {
-            background-color: #1a1a1a;
-            color: var(--gold);
-            padding: 6px 12px;
-            font-size: 0.8rem;
-            text-align: center;
-            border-bottom: 1px solid #333;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
-
-        /* MAP AREA */
-        .viewport {
-            position: relative;
-            width: 100%;
-            flex: 1;
-            overflow: hidden;
-            background: #0d0d0d;
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
-        }
-
-        .map-wrapper {
-            position: relative;
-            width: 100%;
-            max-width: 1100px;
-            margin: 10px auto;
-            border: 2px solid var(--gold);
-            border-radius: 6px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
-        }
-
-        .map-img {
-            width: 100%;
-            height: auto;
-            display: block;
-        }
-
-        /* PINS */
-        .pin {
-            position: absolute;
-            transform: translate(-50%, -50%);
-            background-color: rgba(18, 18, 18, 0.9);
-            color: #ffffff;
-            padding: 3px 7px;
-            border-radius: 10px;
-            font-size: 0.72rem;
-            font-weight: bold;
-            border: 1.5px solid var(--gold);
-            box-shadow: 0 2px 6px rgba(0,0,0,0.7);
-            white-space: nowrap;
-            cursor: pointer;
-            z-index: 10;
-            user-select: none;
-            transition: transform 0.15s ease, background-color 0.15s ease;
-        }
-
-        .pin:hover, .pin.active {
-            transform: translate(-50%, -50%) scale(1.15);
-            background-color: var(--terracotta);
-            border-color: #ffffff;
-            z-index: 30;
-        }
-
-        .pin.vertical {
-            writing-mode: vertical-rl;
-            text-orientation: mixed;
-            padding: 7px 3px;
-        }
-
-        /* MODAL POPUP */
-        .modal-overlay {
-            display: none;
-            position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(0, 0, 0, 0.75);
-            z-index: 100;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
-
-        .modal-overlay.active { display: flex; }
-
-        .modal-card {
-            background-color: var(--cream);
-            color: #222;
-            max-width: 420px;
-            width: 100%;
-            border-radius: 8px;
-            padding: 20px;
-            position: relative;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            border: 2px solid var(--terracotta);
-            animation: pop 0.2s ease-out;
-        }
-
-        @keyframes pop {
-            from { transform: scale(0.9); opacity: 0; }
-            to { transform: scale(1); opacity: 1; }
-        }
-
-        .close-btn {
-            position: absolute;
-            top: 8px; right: 12px;
-            font-size: 1.5rem;
-            background: none;
-            border: none;
-            cursor: pointer;
-            color: #777;
-        }
-
-        .close-btn:hover { color: #000; }
-
-        .modal-title {
-            color: var(--terracotta);
-            font-size: 1.2rem;
-            font-weight: bold;
-            margin-bottom: 8px;
-        }
-
-        .modal-body {
+        .intro-text {
             font-size: 0.95rem;
             line-height: 1.5;
-            color: #333;
+            color: #444;
+            margin: 20px 0;
         }
 
-        @media (max-width: 600px) {
-            .pin {
-                font-size: 0.65rem;
-                padding: 2px 5px;
-            }
-            .pin.vertical {
-                padding: 5px 2px;
-            }
-            header {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-            .header-actions {
-                width: 100%;
-                justify-content: space-between;
-                margin-top: 4px;
-            }
+        .info-box {
+            background-color: #ffffff;
+            border: 1px solid #e0dcd3;
+            border-radius: 6px;
+            padding: 15px;
+            text-align: left;
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .info-box strong {
+            color: var(--terracotta);
+        }
+
+        .info-box ul {
+            margin-top: 5px;
+            margin-left: 20px;
+        }
+
+        .section-title {
+            font-size: 1.1rem;
+            color: var(--terracotta);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-bottom: 1px solid var(--gold);
+            padding-bottom: 5px;
+            margin: 25px 0 15px 0;
+            text-align: left;
+        }
+
+        .schedule-table {
+            width: 100%;
+            text-align: left;
+            font-size: 0.9rem;
+            border-collapse: collapse;
+        }
+
+        .schedule-table td {
+            padding: 6px 0;
+            vertical-align: top;
+        }
+
+        .time-col {
+            font-weight: bold;
+            color: var(--terracotta);
+            width: 130px;
+            white-space: nowrap;
+        }
+
+        /* RSVP BUTTON */
+        .rsvp-box {
+            background-color: #6d281a;
+            color: #fff;
+            padding: 20px;
+            border-radius: 6px;
+            margin-top: 30px;
+        }
+
+        .rsvp-box p {
+            font-size: 0.9rem;
+            margin-bottom: 12px;
+        }
+
+        .btn-rsvp {
+            display: inline-block;
+            background-color: var(--gold);
+            color: #1a1a1a;
+            padding: 10px 22px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+        }
+
+        .btn-rsvp:hover {
+            background-color: #dba54a;
+        }
+
+        @media (max-width: 500px) {
+            h1 { font-size: 1.7rem; }
+            .card { padding: 20px 15px; }
+            .time-col { width: 100px; font-size: 0.85rem; }
         }
     </style>
 </head>
 <body>
 
-    <header>
-        <div class="header-titles">
-            <h1>9th Annual Fall Kickoff</h1>
-            <p>6825 Sweetgrass Lane • Interactive Site Map</p>
-        </div>
-        <div class="header-actions">
-            <a href="./index.html" class="btn btn-sec">📜 Invitation</a>
-            <button class="btn" onclick="window.print()">🖨️ Print / PDF</button>
-        </div>
-    </header>
+    <div class="card">
+        <div class="leaf-icon">🍂 🍁 🍂</div>
+        <div class="subtitle-top">The Krumwied Family Invites You To The</div>
+        <h1>9th Annual Fall Kickoff</h1>
+        
+        <div class="date-location">SATURDAY, OCTOBER 3RD, 2026 • FESTIVITIES BEGIN AT 4:30 PM</div>
+        <div class="address">Hosted at the Krumwied Home: 6825 Sweetgrass Lane, Cicero, IN 46034</div>
 
-    <div class="banner">
-        <span>💡 Tap any pin on the map to view details & schedule!</span>
+        <!-- EVENT MAP CALLOUT BOX -->
+        <div class="map-callout">
+            <h3>📍 Please Review the Event Map Before Arrival!</h3>
+            <p>Check designated parking rows, check-in tent location, bounce houses, and activity zones:</p>
+            <a href="map.html" class="btn-map">🗺️ View Interactive Site Map</a>
+        </div>
+
+        <p class="intro-text">
+            If you've attended in the past, you get it. If not, you're in for an amazing time! Bring your friends and family for a full day of fall fun, music, food, and fireworks.
+        </p>
+
+        <!-- ARRIVAL & CHECK-IN -->
+        <div class="info-box">
+            <strong>🎟️ Arrival & Check-In:</strong> Please check in at the <strong>Maid Right tent</strong> at the front when you arrive!
+            <ul>
+                <li><strong>Adult Meals:</strong> $5 per meal</li>
+                <li><strong>Kids Meals:</strong> Free!</li>
+                <li>Pick up your food tickets and kids' snow cone coins here.</li>
+            </ul>
+        </div>
+
+        <!-- SCHEDULE -->
+        <div class="section-title">⏱️ The Schedule</div>
+        <table class="schedule-table">
+            <tr>
+                <td class="time-col">4:00 PM – Dusk</td>
+                <td>Yard Games, Kids Crafts, & Bounce Houses</td>
+            </tr>
+            <tr>
+                <td class="time-col">4:00 PM – Until Gone</td>
+                <td>Porkopolis Food Truck & Chili</td>
+            </tr>
+            <tr>
+                <td class="time-col">4:30 PM – Dusk</td>
+                <td>Hayrides, S'mores, & Pumpkin Patch</td>
+            </tr>
+            <tr>
+                <td class="time-col">4:30 PM – 7:00 PM</td>
+                <td>Jackson Twp Touch-a-Truck Fire Engine</td>
+            </tr>
+            <tr>
+                <td class="time-col">5:30 PM – 9:00 PM</td>
+                <td>Live Music on Deck: Dream Slice</td>
+            </tr>
+            <tr>
+                <td class="time-col">At Dusk (~8:15 PM)</td>
+                <td>Fireworks Show! 🎆</td>
+            </tr>
+        </table>
+
+        <!-- RSVP BOX -->
+        <div class="rsvp-box">
+            <p>Please let us know if you can make it so we have enough food!</p>
+            <a href="https://www.evite.com" target="_blank" class="btn-rsvp">RSVP on Evite Now</a>
+        </div>
     </div>
 
-    <div class="viewport">
-        <div class="map-wrapper" id="mapWrapper">
-            <img src="./yard-map.jpg" alt="Fall Kickoff Yard Map" class="map-img">
-        </div>
-    </div>
-
-    <!-- MODAL POPUP -->
-    <div class="modal-overlay" id="modalOverlay" onclick="closeInfo(event)">
-        <div class="modal-card">
-            <button class="close-btn" onclick="forceCloseInfo()">&times;</button>
-            <div class="modal-title" id="modalTitle">Pin Info</div>
-            <div class="modal-body" id="modalBody">Details...</div>
-        </div>
-    </div>
-
-    <script>
-        const pinData = [
-            { "label": "🎆 Fireworks Launch Zone", "x": "82.2%", "y": "32.6%", "orientation": "horizontal", "desc": "Grand Finale fireworks show begins at dusk (~8:15 PM)! Please maintain a safe distance." },
-            { "label": "🚒 Touch-a-Truck", "x": "82.5%", "y": "41%", "orientation": "horizontal", "desc": "Jackson Township Fire Truck on site! Kids can explore from 4:30 PM – 7:00 PM." },
-            { "label": "📍 Check-In Tent", "x": "76.8%", "y": "47.5%", "orientation": "horizontal", "desc": "Check in here to collect meal tickets ($5 adult / free kids) and snow cone coins!" },
-            { "label": "🎸 Band Stage (Deck)", "x": "65.4%", "y": "56.8%", "orientation": "horizontal", "desc": "Live music on the deck by Dream Slice from 5:30 PM to 9:00 PM!" },
-            { "label": "Patio Lounge", "x": "63.7%", "y": "61.8%", "orientation": "horizontal", "desc": "Outdoor seating to relax, eat, and listen to the band." },
-            { "label": "🔥 Fire", "x": "75.5%", "y": "66.7%", "orientation": "horizontal", "desc": "Main campfire setup for cozy evening warming." },
-            { "label": "🎯 Lawn Games", "x": "83%", "y": "66.3%", "orientation": "vertical", "desc": "Cornhole, giant Jenga, and yard games available all evening!" },
-            { "label": "⛺ Dining Tent", "x": "76.8%", "y": "77.1%", "orientation": "horizontal", "desc": "Covered seating area to enjoy food and drinks." },
-            { "label": "🎨 Kids Coloring", "x": "90%", "y": "62.1%", "orientation": "vertical", "desc": "Craft and coloring table set up for kids!" },
-            { "label": "🏰 Bounce House Alley", "x": "72.9%", "y": "87.4%", "orientation": "horizontal", "desc": "Bounce houses open for kids from 4:00 PM until dusk!" },
-            { "label": "🚚 Vendor Row", "x": "90%", "y": "72.2%", "orientation": "vertical", "desc": "Porkopolis BBQ, chili station, and drinks on tap!" },
-            { "label": "🎃 Pumpkin Patch", "x": "71.4%", "y": "95%", "orientation": "horizontal", "desc": "Pick a pumpkin to decorate or take home!" },
-            { "label": "🔥 Trail Fire Pit/Smores", "x": "53.6%", "y": "70.5%", "orientation": "vertical", "desc": "Trail fire pit stocked with S'mores supplies!" },
-            { "label": "🚜 Hayride Route", "x": "54.3%", "y": "94%", "orientation": "horizontal", "desc": "Tractor-drawn hayride running continuously from 4:30 PM until dusk." },
-            { "label": "Bathrooms", "x": "85.7%", "y": "55.4%", "orientation": "vertical", "desc": "Restroom facilities located here." },
-            { "label": "🚗 One Row Parking Please", "x": "19.2%", "y": "32.2%", "orientation": "horizontal", "desc": "Single row parking along Sweetgrass Lane." },
-            { "label": "🚗 One Row Parking Please", "x": "4.9%", "y": "37.8%", "orientation": "horizontal", "desc": "Single row parking along Sweetgrass Lane." },
-            { "label": "🚗 4 Row Parking", "x": "54.3%", "y": "41.5%", "orientation": "horizontal", "desc": "Main parking area. Please park close together in 4 rows." },
-            { "label": "🚜 Hayride Pickup", "x": "90%", "y": "81.6%", "orientation": "vertical", "desc": "Board the hayride here!" },
-            { "label": "After Party", "x": "71.6%", "y": "91.2%", "orientation": "horizontal", "desc": "Post-fireworks gathering around the deck fire pits!" },
-            { "label": "🏰 Toddler Bounce House", "x": "66.5%", "y": "66.3%", "orientation": "vertical", "desc": "Dedicated safe bounce area for toddlers." },
-            { "label": "Soccer/Football", "x": "69.9%", "y": "43.8%", "orientation": "horizontal", "desc": "Open grass field for football and soccer." }
-        ];
-
-        const wrapper = document.getElementById('mapWrapper');
-
-        pinData.forEach(item => {
-            const pin = document.createElement('div');
-            pin.className = `pin ${item.orientation === 'vertical' ? 'vertical' : ''}`;
-            pin.style.left = item.x;
-            pin.style.top = item.y;
-            pin.innerText = item.label;
-
-            pin.onclick = (e) => {
-                e.stopPropagation();
-                openInfo(item.label, item.desc);
-            };
-            wrapper.appendChild(pin);
-        });
-
-        function openInfo(title, desc) {
-            document.getElementById('modalTitle').innerText = title;
-            document.getElementById('modalBody').innerText = desc;
-            document.getElementById('modalOverlay').classList.add('active');
-        }
-
-        function closeInfo(e) {
-            if (e.target.id === 'modalOverlay') {
-                document.getElementById('modalOverlay').classList.remove('active');
-            }
-        }
-
-        function forceCloseInfo() {
-            document.getElementById('modalOverlay').classList.remove('active');
-        }
-    </script>
 </body>
 </html>

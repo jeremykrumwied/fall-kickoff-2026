@@ -3,14 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>9th Annual Fall Kickoff - Invitation</title>
+    <title>9th Annual Fall Kickoff</title>
     <style>
         :root {
             --terracotta: #a35d47;
-            --cream: #f7f7f3;
-            --dark-charcoal: #2d2d2d;
+            --dark-terracotta: #8c4c37;
+            --cream-bg: #f9f8f3;
+            --card-bg: #ffffff;
+            --text-dark: #333333;
+            --text-muted: #666666;
             --gold: #c9933b;
-            --light-gold: #f4ece1;
+            --gold-hover: #b3802e;
+            --border-color: #e5e0d8;
         }
 
         * {
@@ -20,212 +24,281 @@
         }
 
         body {
-            font-family: Georgia, serif;
-            background-color: #1a1a1a;
-            color: var(--dark-charcoal);
-            padding: 20px 10px;
+            font-family: Georgia, "Times New Roman", Times, serif;
+            background-color: var(--cream-bg);
+            color: var(--text-dark);
+            line-height: 1.6;
+            padding: 24px 12px;
             display: flex;
             justify-content: center;
-            align-items: center;
-            min-height: 100vh;
         }
 
-        .card {
-            background-color: var(--cream);
-            border: 4px double var(--terracotta);
-            border-radius: 8px;
-            max-width: 680px;
+        .invite-card {
             width: 100%;
-            padding: 35px 25px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            text-align: center;
+            max-width: 680px;
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            padding: 36px 32px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            border-radius: 4px;
         }
 
-        .leaf-icon {
-            font-size: 1.5rem;
-            margin-bottom: 5px;
+        /* HEADER */
+        header {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        .leaves-icon {
+            font-size: 1.4rem;
+            margin-bottom: 6px;
+            display: block;
         }
 
         .subtitle-top {
-            font-size: 0.85rem;
-            letter-spacing: 2px;
-            text-transform: uppercase;
             color: var(--terracotta);
-            margin-bottom: 10px;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-weight: bold;
+            margin-bottom: 8px;
         }
 
         h1 {
-            font-size: 2.2rem;
             color: var(--terracotta);
-            line-height: 1.15;
+            font-size: 2.3rem;
             text-transform: uppercase;
-            margin-bottom: 15px;
-            font-weight: normal;
             letter-spacing: 1px;
-        }
-
-        .date-location {
-            font-size: 1rem;
             font-weight: bold;
-            color: var(--terracotta);
-            margin-bottom: 6px;
+            margin-bottom: 12px;
         }
 
-        .address {
+        .event-date {
+            color: var(--terracotta);
+            font-weight: bold;
+            font-size: 1.05rem;
+            letter-spacing: 0.5px;
+        }
+
+        .event-location {
+            color: var(--text-dark);
             font-style: italic;
             font-size: 0.95rem;
-            color: #555;
-            margin-bottom: 25px;
+            margin-top: 4px;
         }
 
-        /* SITE MAP CALLOUT BOX */
-        .map-callout {
-            background-color: var(--light-gold);
-            border: 1.5px solid var(--gold);
-            border-radius: 6px;
+        /* MAP CALLOUT BANNER */
+        .map-banner {
+            background-color: #f6f1eb;
+            border: 1px solid #ebdcd0;
+            border-radius: 4px;
             padding: 16px;
-            margin: 20px 0;
             text-align: center;
+            margin: 24px 0;
         }
 
-        .map-callout h3 {
+        .map-banner h2 {
             color: var(--terracotta);
-            font-size: 1rem;
-            margin-bottom: 6px;
+            font-size: 1.05rem;
+            font-weight: bold;
+            margin-bottom: 4px;
         }
 
-        .map-callout p {
-            font-size: 0.85rem;
+        .map-banner p {
             color: #555;
+            font-size: 0.88rem;
             margin-bottom: 12px;
-            line-height: 1.3;
         }
 
         .btn-map {
             display: inline-block;
             background-color: var(--terracotta);
             color: #ffffff;
-            padding: 10px 18px;
+            padding: 10px 20px;
             border-radius: 4px;
             text-decoration: none;
-            font-weight: bold;
             font-size: 0.85rem;
-            letter-spacing: 0.5px;
-            transition: background 0.2s;
+            font-weight: bold;
             text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: background-color 0.2s ease;
         }
 
         .btn-map:hover {
-            background-color: #8c4c37;
+            background-color: var(--dark-terracotta);
         }
 
+        /* INTRO TEXT */
         .intro-text {
-            font-size: 0.95rem;
-            line-height: 1.5;
+            text-align: center;
             color: #444;
+            font-size: 1rem;
+            line-height: 1.5;
             margin: 20px 0;
         }
 
-        .info-box {
+        /* CHECK-IN BOX */
+        .checkin-box {
             background-color: #ffffff;
-            border: 1px solid #e0dcd3;
-            border-radius: 6px;
-            padding: 15px;
-            text-align: left;
-            margin-bottom: 20px;
+            border: 1px solid #e8e3dc;
+            border-radius: 4px;
+            padding: 18px 20px;
+            margin: 20px 0;
+        }
+
+        .checkin-title {
+            color: var(--terracotta);
+            font-size: 0.98rem;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .checkin-box ul {
+            list-style-type: disc;
+            padding-left: 24px;
+            font-size: 0.92rem;
+            color: #444;
+        }
+
+        .checkin-box li {
+            margin-bottom: 4px;
+        }
+
+        /* WHAT TO BRING & AMENITIES */
+        .details-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin: 20px 0;
+        }
+
+        .details-card {
+            background-color: #fcfbf9;
+            border: 1px solid #eee8e0;
+            padding: 14px 16px;
+            border-radius: 4px;
+        }
+
+        .details-card h3 {
+            color: var(--terracotta);
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+            border-bottom: 1px solid #ebdcd0;
+            padding-bottom: 4px;
+        }
+
+        .details-card ul {
+            list-style-type: none;
+            font-size: 0.88rem;
+            color: #444;
+        }
+
+        .details-card li {
+            margin-bottom: 6px;
+        }
+
+        /* SHOE REMINDER */
+        .shoe-reminder {
+            background-color: #fff9f2;
+            border-left: 3px solid var(--gold);
+            padding: 12px 16px;
             font-size: 0.9rem;
-            line-height: 1.5;
+            color: #555;
+            margin: 20px 0;
+            border-radius: 0 4px 4px 0;
         }
 
-        .info-box strong {
+        .shoe-reminder strong {
             color: var(--terracotta);
         }
 
-        .info-box ul {
-            margin-top: 5px;
-            margin-left: 20px;
-        }
-
-        .section-title {
+        /* SCHEDULE SECTION */
+        .schedule-title {
+            color: var(--terracotta);
             font-size: 1.1rem;
-            color: var(--terracotta);
             text-transform: uppercase;
             letter-spacing: 1px;
-            border-bottom: 1px solid var(--gold);
-            padding-bottom: 5px;
-            margin: 25px 0 15px 0;
-            text-align: left;
+            border-bottom: 1px solid #e0d8cd;
+            padding-bottom: 6px;
+            margin-top: 30px;
+            margin-bottom: 16px;
         }
 
-        .schedule-table {
-            width: 100%;
-            text-align: left;
-            font-size: 0.9rem;
-            border-collapse: collapse;
+        .schedule-row {
+            display: flex;
+            margin-bottom: 10px;
+            font-size: 0.95rem;
         }
 
-        .schedule-table td {
-            padding: 6px 0;
-            vertical-align: top;
-        }
-
-        .time-col {
+        .schedule-time {
+            width: 170px;
             font-weight: bold;
             color: var(--terracotta);
-            width: 130px;
-            white-space: nowrap;
+            flex-shrink: 0;
         }
 
-        /* RSVP BUTTON */
-        .rsvp-box {
-            background-color: #6d281a;
-            color: #fff;
+        .schedule-desc {
+            color: var(--text-dark);
+        }
+
+        /* RSVP FOOTER BANNER */
+        .rsvp-banner {
+            background-color: var(--terracotta);
+            color: #ffffff;
+            text-align: center;
             padding: 20px;
-            border-radius: 6px;
+            border-radius: 4px;
             margin-top: 30px;
         }
 
-        .rsvp-box p {
-            font-size: 0.9rem;
-            margin-bottom: 12px;
+        .rsvp-banner p {
+            font-size: 0.95rem;
+            margin-bottom: 14px;
         }
 
         .btn-rsvp {
             display: inline-block;
             background-color: var(--gold);
-            color: #1a1a1a;
-            padding: 10px 22px;
+            color: #ffffff;
+            padding: 10px 24px;
             border-radius: 4px;
             text-decoration: none;
             font-weight: bold;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: background-color 0.2s ease;
         }
 
         .btn-rsvp:hover {
-            background-color: #dba54a;
+            background-color: var(--gold-hover);
         }
 
-        @media (max-width: 500px) {
+        @media (max-width: 550px) {
+            .invite-card { padding: 20px 16px; }
             h1 { font-size: 1.7rem; }
-            .card { padding: 20px 15px; }
-            .time-col { width: 100px; font-size: 0.85rem; }
+            .details-grid { grid-template-columns: 1fr; }
+            .schedule-row { flex-direction: column; margin-bottom: 12px; }
+            .schedule-time { width: 100%; margin-bottom: 2px; }
         }
     </style>
 </head>
 <body>
 
-    <div class="card">
-        <div class="leaf-icon">🍂 🍁 🍂</div>
-        <div class="subtitle-top">The Krumwied Family Invites You To The</div>
-        <h1>9th Annual Fall Kickoff</h1>
-        
-        <div class="date-location">SATURDAY, OCTOBER 3RD, 2026 • FESTIVITIES BEGIN AT 4:30 PM</div>
-        <div class="address">Hosted at the Krumwied Home: 6825 Sweetgrass Lane, Cicero, IN 46034</div>
+    <div class="invite-card">
+        <header>
+            <span class="leaves-icon">🍂 🍁 🍂</span>
+            <div class="subtitle-top">The Krumwied Family Invites You To The</div>
+            <h1>9th Annual Fall Kickoff</h1>
+            <div class="event-date">SATURDAY, OCTOBER 3RD, 2026 • FESTIVITIES BEGIN AT 4:30 PM</div>
+            <div class="event-location">Hosted at the Krumwied Home: 6825 Sweetgrass Lane, Cicero, IN 46034</div>
+        </header>
 
-        <!-- EVENT MAP CALLOUT BOX -->
-        <div class="map-callout">
-            <h3>📍 Please Review the Event Map Before Arrival!</h3>
+        <!-- EVENT MAP CALLOUT -->
+        <div class="map-banner">
+            <h2>📍 Please Review the Event Map Before Arrival!</h2>
             <p>Check designated parking rows, check-in tent location, bounce houses, and activity zones:</p>
             <a href="map.html" class="btn-map">🗺️ View Interactive Site Map</a>
         </div>
@@ -234,9 +307,9 @@
             If you've attended in the past, you get it. If not, you're in for an amazing time! Bring your friends and family for a full day of fall fun, music, food, and fireworks.
         </p>
 
-        <!-- ARRIVAL & CHECK-IN -->
-        <div class="info-box">
-            <strong>🎟️ Arrival & Check-In:</strong> Please check in at the <strong>Maid Right tent</strong> at the front when you arrive!
+        <!-- CHECK-IN BOX -->
+        <div class="checkin-box">
+            <div class="checkin-title">🎟️ Arrival & Check-In: Please check in at the Maid Right tent at the front when you arrive!</div>
             <ul>
                 <li><strong>Adult Meals:</strong> $5 per meal</li>
                 <li><strong>Kids Meals:</strong> Free!</li>
@@ -244,39 +317,64 @@
             </ul>
         </div>
 
-        <!-- SCHEDULE -->
-        <div class="section-title">⏱️ The Schedule</div>
-        <table class="schedule-table">
-            <tr>
-                <td class="time-col">4:00 PM – Dusk</td>
-                <td>Yard Games, Kids Crafts, & Bounce Houses</td>
-            </tr>
-            <tr>
-                <td class="time-col">4:00 PM – Until Gone</td>
-                <td>Porkopolis Food Truck & Chili</td>
-            </tr>
-            <tr>
-                <td class="time-col">4:30 PM – Dusk</td>
-                <td>Hayrides, S'mores, & Pumpkin Patch</td>
-            </tr>
-            <tr>
-                <td class="time-col">4:30 PM – 7:00 PM</td>
-                <td>Jackson Twp Touch-a-Truck Fire Engine</td>
-            </tr>
-            <tr>
-                <td class="time-col">5:30 PM – 9:00 PM</td>
-                <td>Live Music on Deck: Dream Slice</td>
-            </tr>
-            <tr>
-                <td class="time-col">At Dusk (~8:15 PM)</td>
-                <td>Fireworks Show! 🎆</td>
-            </tr>
-        </table>
+        <!-- WHAT TO BRING & REFRESHMENTS -->
+        <div class="details-grid">
+            <div class="details-card">
+                <h3>🎒 What to Bring</h3>
+                <ul>
+                    <li>• Bug spray & sunscreen</li>
+                    <li>• Lawn chairs</li>
+                    <li>• Tent (if you're staying overnight)</li>
+                    <li>• Favorite family snacks</li>
+                </ul>
+            </div>
+            <div class="details-card">
+                <h3>🍹 Refreshments Provided</h3>
+                <ul>
+                    <li>• Cold water</li>
+                    <li>• Lemonade</li>
+                    <li>• 2 beers on tap (until gone!)</li>
+                </ul>
+            </div>
+        </div>
 
-        <!-- RSVP BOX -->
-        <div class="rsvp-box">
+        <!-- SHOE REMINDER -->
+        <div class="shoe-reminder">
+            👟 <strong>Friendly Reminder:</strong> Please double-check that you have all of your kids' shoes (and your own!) before heading home! Tons of shoes get left behind in the grass and bounce house area every single year.
+        </div>
+
+        <!-- SCHEDULE -->
+        <div class="schedule-title">⏱️ The Schedule</div>
+        
+        <div class="schedule-row">
+            <div class="schedule-time">4:00 PM – Dusk</div>
+            <div class="schedule-desc">Yard Games, Kids Crafts, & Bounce Houses</div>
+        </div>
+        <div class="schedule-row">
+            <div class="schedule-time">4:00 PM – Until Gone</div>
+            <div class="schedule-desc">Porkopolis Food Truck & Chili</div>
+        </div>
+        <div class="schedule-row">
+            <div class="schedule-time">4:30 PM – Dusk</div>
+            <div class="schedule-desc">Hayrides, S'mores, & Pumpkin Patch</div>
+        </div>
+        <div class="schedule-row">
+            <div class="schedule-time">4:30 PM – 7:00 PM</div>
+            <div class="schedule-desc">Jackson Twp Touch-a-Truck Fire Engine</div>
+        </div>
+        <div class="schedule-row">
+            <div class="schedule-time">5:30 PM – 9:00 PM</div>
+            <div class="schedule-desc">Live Music on Deck: Dream Slice</div>
+        </div>
+        <div class="schedule-row">
+            <div class="schedule-time">At Dusk (~8:15 PM)</div>
+            <div class="schedule-desc">Fireworks Show! 🎆</div>
+        </div>
+
+        <!-- RSVP BANNER -->
+        <div class="rsvp-banner">
             <p>Please let us know if you can make it so we have enough food!</p>
-            <a href="https://www.evite.com" target="_blank" class="btn-rsvp">RSVP on Evite Now</a>
+            <a href="https://www.evite.com" target="_blank" rel="noopener" class="btn-rsvp">RSVP ON EVITE NOW</a>
         </div>
     </div>
 

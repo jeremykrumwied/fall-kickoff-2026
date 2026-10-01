@@ -1,305 +1,234 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-    <title>9th Annual Fall Kickoff - Interactive Site Map</title>
-    <style>
-        :root {
-            --terracotta: #a35d47;
-            --cream: #f7f7f3;
-            --dark: #121212;
-            --gold: #c9933b;
-            --badge-bg: rgba(26, 26, 26, 0.92);
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Event Map</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f6f9;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 10px;
+    }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; }
+    /* Responsive Map Container */
+    .map-container {
+      position: relative;
+      width: 100%;
+      max-width: 900px;
+      background: #fff;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
 
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            background-color: var(--dark);
-            color: #ffffff;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
+    .map-image {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
 
-        /* HEADER */
-        header {
-            width: 100%;
-            background-color: #1e1e1e;
-            padding: 12px 16px;
-            border-bottom: 2px solid var(--gold);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 12px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
-            z-index: 10;
-        }
+    /* Marker Base Styles */
+    .map-marker {
+      position: absolute;
+      transform: translate(-50%, -50%);
+      display: flex;
+      align-items: center;
+      z-index: 10;
+    }
 
-        .header-titles h1 {
-            color: var(--gold);
-            font-size: 1.1rem;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
+    .marker-badge {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background-color: #007bff;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+      flex-shrink: 0;
+    }
 
-        .header-titles p {
-            color: #aaa;
-            font-size: 0.75rem;
-            margin-top: 2px;
-        }
+    /* Full Tag Style */
+    .marker-full {
+      background: rgba(255, 255, 255, 0.95);
+      border: 1px solid #ddd;
+      border-radius: 24px;
+      padding: 3px 10px 3px 3px;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+      gap: 6px;
+    }
+    .marker-content { display: flex; flex-direction: column; line-height: 1.2; }
+    .marker-title { font-weight: bold; font-size: 11px; color: #222; white-space: nowrap; }
+    .marker-desc { font-size: 9px; color: #666; white-space: nowrap; }
 
-        .header-actions {
-            display: flex;
-            gap: 8px;
-            align-items: center;
-            flex-shrink: 0;
-        }
+    /* Icon Only Style */
+    .marker-icon-only .marker-badge {
+      background-color: #343a40;
+      border: 2px solid #fff;
+    }
+    .marker-tooltip {
+      display: none;
+      position: absolute;
+      bottom: 120%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #222;
+      color: #fff;
+      padding: 3px 6px;
+      border-radius: 4px;
+      font-size: 10px;
+      white-space: nowrap;
+      z-index: 20;
+    }
+    .marker-icon-only:hover .marker-tooltip,
+    .marker-icon-only.active .marker-tooltip { display: block; }
 
-        .btn-header {
-            background-color: var(--terracotta);
-            color: #ffffff;
-            padding: 9px 14px;
-            border-radius: 6px;
-            text-decoration: none;
-            font-weight: bold;
-            font-size: 0.85rem;
-            border: none;
-            cursor: pointer;
-            white-space: nowrap;
-        }
-
-        .btn-header:hover { background-color: #8c4c37; }
-        .btn-secondary { background-color: #333; border: 1px solid #555; }
-
-        .instruction-banner {
-            width: 100%;
-            text-align: center;
-            background-color: #181818;
-            color: var(--gold);
-            padding: 8px 12px;
-            font-size: 0.8rem;
-            border-bottom: 1px solid #2a2a2a;
-        }
-
-        /* MAP CONTAINER */
-        .map-wrapper {
-            width: 100%;
-            max-width: 1100px;
-            padding: 12px;
-            display: flex;
-            justify-content: center;
-        }
-
-        .map-card {
-            position: relative;
-            width: 100%;
-            border: 2px solid var(--gold);
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.8);
-            background-color: #000;
-        }
-
-        .map-img {
-            width: 100%;
-            height: auto;
-            display: block;
-        }
-
-        /* SMART PINS (RESPONSIVE) */
-        .pin {
-            position: absolute;
-            transform: translate(-50%, -50%);
-            background-color: var(--badge-bg);
-            color: #ffffff;
-            padding: 3px 7px;
-            border-radius: 6px;
-            font-size: 0.72rem;
-            font-weight: bold;
-            border: 1.5px solid var(--gold);
-            box-shadow: 0 2px 6px rgba(0,0,0,0.8);
-            white-space: nowrap;
-            cursor: pointer;
-            z-index: 5;
-            user-select: none;
-            transition: transform 0.15s ease, background-color 0.15s ease;
-        }
-
-        .pin:hover, .pin:active {
-            transform: translate(-50%, -50%) scale(1.2);
-            background-color: var(--terracotta);
-            border-color: #ffffff;
-            z-index: 20;
-        }
-
-        /* MOBILE OPTIMIZATION: CONVERT TO CLEAN COMPACT BADGES */
-        @media (max-width: 650px) {
-            header { flex-direction: column; align-items: stretch; padding: 12px; }
-            .header-titles { text-align: center; margin-bottom: 6px; }
-            .header-actions { width: 100%; justify-content: space-between; }
-            .btn-header { flex: 1; text-align: center; }
-
-            .pin {
-                padding: 4px;
-                border-radius: 50%;
-                width: 26px;
-                height: 26px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                font-size: 0.85rem;
-                border-width: 1.5px;
-            }
-
-            /* Hide full text on small screens, show only the emoji icon */
-            .pin span.text-label {
-                display: none;
-            }
-        }
-
-        @media (min-width: 651px) {
-            .pin.vertical {
-                writing-mode: vertical-rl;
-                text-orientation: mixed;
-                padding: 7px 3px;
-            }
-        }
-
-        /* MODAL POPUP */
-        .modal-overlay {
-            display: none;
-            position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(0, 0, 0, 0.75);
-            z-index: 100;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
-
-        .modal-overlay.active { display: flex; }
-
-        .modal-card {
-            background-color: var(--cream);
-            color: #222;
-            max-width: 420px;
-            width: 100%;
-            border-radius: 8px;
-            padding: 20px;
-            position: relative;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            border: 2px solid var(--terracotta);
-            animation: pop 0.2s ease-out;
-        }
-
-        @keyframes pop {
-            from { transform: scale(0.9); opacity: 0; }
-            to { transform: scale(1); opacity: 1; }
-        }
-
-        .close-btn {
-            position: absolute;
-            top: 8px; right: 12px;
-            font-size: 1.5rem;
-            background: none;
-            border: none;
-            cursor: pointer;
-            color: #777;
-        }
-
-        .close-btn:hover { color: #000; }
-
-        .modal-title {
-            color: var(--terracotta);
-            font-size: 1.15rem;
-            font-weight: bold;
-            margin-bottom: 8px;
-        }
-
-        .modal-body {
-            font-size: 0.95rem;
-            line-height: 1.5;
-            color: #333;
-        }
-    </style>
+    /* Mobile Scaling Adaptations */
+    @media (max-width: 600px) {
+      .marker-title { font-size: 9px; }
+      .marker-desc { font-size: 8px; }
+      .marker-badge { width: 26px; height: 26px; font-size: 11px; }
+      .marker-full { padding: 2px 6px 2px 2px; gap: 4px; }
+    }
+  </style>
 </head>
 <body>
 
-    <header>
-        <div class="header-titles">
-            <h1>9th Annual Fall Kickoff</h1>
-            <p>6825 Sweetgrass Lane • Interactive Site Map</p>
-        </div>
-        <div class="header-actions">
-            <a href="index.html" class="btn-header btn-secondary">📜 Back to Invitation</a>
-            <button class="btn-header" onclick="window.print()">🖨️ Print / PDF</button>
-        </div>
-    </header>
+  <div class="map-container">
+    <img src="yard-map.jpg" alt="Event Map" class="map-image">
 
-    <div class="instruction-banner">
-        💡 Tap any icon on the map to open location details & schedules!
+    <!-- Your Exact Markers with Pumpkins Icon Upgraded -->
+    <div class="map-marker marker-full" style="top: 40.7%; left: 57.36%;">
+      <div class="marker-badge"><i class="fas fa-parking"></i></div>
+      <div class="marker-content">
+        <span class="marker-title">Parking</span>
+        <span class="marker-desc">4 Row</span>
+      </div>
     </div>
 
-    <div class="map-wrapper">
-        <div class="map-card">
-            <img src="yard-map.jpg" alt="Fall Kickoff Site Map" class="map-img">
-
-            <!-- MOBILE COMPACT PINS -->
-            <div class="pin" style="left:82.2%; top:32.6%;" onclick="openInfo('🎆 Fireworks Launch Zone', 'Grand Finale fireworks show begins at dusk (~8:15 PM)! Please maintain a safe distance.')">🎆 <span class="text-label">Fireworks</span></div>
-            <div class="pin" style="left:82.5%; top:41%;" onclick="openInfo('🚒 Touch-a-Truck', 'Jackson Township Fire Truck on site! Kids can explore from 4:30 PM – 7:00 PM.')">🚒 <span class="text-label">Touch-a-Truck</span></div>
-            <div class="pin" style="left:76.8%; top:47.5%;" onclick="openInfo('📍 Check-In Tent', 'Check in here to collect meal tickets ($5 adult / free kids) and snow cone coins!')">📍 <span class="text-label">Check-In Tent</span></div>
-            <div class="pin" style="left:65.4%; top:56.8%;" onclick="openInfo('🎸 Band Stage (Deck)', 'Live music on the deck by Dream Slice from 5:30 PM to 9:00 PM!')">🎸 <span class="text-label">Band Stage</span></div>
-            <div class="pin" style="left:63.7%; top:61.8%;" onclick="openInfo('☕ Patio Lounge', 'Outdoor seating to relax, eat, and listen to the band.')">☕ <span class="text-label">Patio Lounge</span></div>
-            <div class="pin" style="left:75.5%; top:66.7%;" onclick="openInfo('🔥 Main Fire Pit', 'Main campfire setup for cozy evening warming.')">🔥 <span class="text-label">Fire Pit</span></div>
-            <div class="pin vertical" style="left:83%; top:66.3%;" onclick="openInfo('🎯 Lawn Games', 'Cornhole, giant Jenga, and yard games available all evening!')">🎯 <span class="text-label">Lawn Games</span></div>
-            <div class="pin" style="left:76.8%; top:77.1%;" onclick="openInfo('⛺ Dining Tent', 'Covered seating area to enjoy food and drinks.')">⛺ <span class="text-label">Dining Tent</span></div>
-            <div class="pin vertical" style="left:90%; top:62.1%;" onclick="openInfo('🎨 Kids Crafts', 'Craft and coloring table set up for kids!')">🎨 <span class="text-label">Kids Crafts</span></div>
-            <div class="pin" style="left:72.9%; top:87.4%;" onclick="openInfo('🏰 Bounce House Alley', 'Bounce houses open for kids from 4:00 PM until dusk!')">🏰 <span class="text-label">Bounce Alley</span></div>
-            <div class="pin vertical" style="left:90%; top:72.2%;" onclick="openInfo('🚚 Vendor Row / Food', 'Porkopolis BBQ, chili station, and drinks on tap!')">🚚 <span class="text-label">Food & Drinks</span></div>
-            <div class="pin" style="left:71.4%; top:95%;" onclick="openInfo('🎃 Pumpkin Patch', 'Pick a pumpkin to decorate or take home!')">🎃 <span class="text-label">Pumpkin Patch</span></div>
-            <div class="pin vertical" style="left:53.6%; top:70.5%;" onclick="openInfo('🍫 Trail Smores Fire', 'Trail fire pit stocked with S\'mores supplies!')">🍫 <span class="text-label">S'mores Fire</span></div>
-            <div class="pin" style="left:54.3%; top:94%;" onclick="openInfo('🚜 Hayride Route', 'Tractor-drawn hayride running continuously from 4:30 PM until dusk.')">🚜 <span class="text-label">Hayride Route</span></div>
-            <div class="pin vertical" style="left:85.7%; top:55.4%;" onclick="openInfo('🚻 Restrooms', 'Restroom facilities located here.')">🚻 <span class="text-label">Restrooms</span></div>
-            <div class="pin" style="left:19.2%; top:32.2%;" onclick="openInfo('🚗 One Row Parking', 'Single row parking along Sweetgrass Lane.')">🚗 <span class="text-label">Single Row Parking</span></div>
-            <div class="pin" style="left:4.9%; top:37.8%;" onclick="openInfo('🚗 One Row Parking', 'Single row parking along Sweetgrass Lane.')">🚗 <span class="text-label">Single Row Parking</span></div>
-            <div class="pin" style="left:54.3%; top:41.5%;" onclick="openInfo('🚗 4-Row Parking Area', 'Main parking area. Please park close together in 4 rows.')">🚗 <span class="text-label">4-Row Parking</span></div>
-            <div class="pin vertical" style="left:90%; top:81.6%;" onclick="openInfo('🚜 Hayride Boarding', 'Board the hayride here!')">🚜 <span class="text-label">Hayride Pickup</span></div>
-            <div class="pin" style="left:71.6%; top:91.2%;" onclick="openInfo('🌙 After Party Area', 'Post-fireworks gathering around the deck fire pits!')">🌙 <span class="text-label">After Party</span></div>
-            <div class="pin vertical" style="left:66.5%; top:66.3%;" onclick="openInfo('🧸 Toddler Bounce', 'Dedicated safe bounce area for toddlers.')">🧸 <span class="text-label">Toddler Bounce</span></div>
-            <div class="pin" style="left:69.9%; top:43.8%;" onclick="openInfo('⚽ Sports Field', 'Open grass field for football and soccer.')">⚽ <span class="text-label">Sports Field</span></div>
-
-        </div>
+    <div class="map-marker marker-full" style="top: 49.34%; left: 84.5%;">
+      <div class="marker-badge"><i class="fas fa-clipboard-check"></i></div>
+      <div class="marker-content">
+        <span class="marker-title">Check-In</span>
+        <span class="marker-desc"></span>
+      </div>
     </div>
 
-    <!-- DETAIL POPUP MODAL -->
-    <div class="modal-overlay" id="modalOverlay" onclick="closeInfo(event)">
-        <div class="modal-card">
-            <button class="close-btn" onclick="forceCloseInfo()">&times;</button>
-            <div class="modal-title" id="modalTitle">Pin Details</div>
-            <div class="modal-body" id="modalBody">Details...</div>
-        </div>
+    <div class="map-marker marker-full" style="top: 93.17%; left: 92.93%;">
+      <div class="marker-badge"><i class="fas fa-glass-cheers"></i></div>
+      <div class="marker-content">
+        <span class="marker-title">After Party</span>
+        <span class="marker-desc"></span>
+      </div>
     </div>
 
-    <script>
-        function openInfo(title, desc) {
-            document.getElementById('modalTitle').innerText = title;
-            document.getElementById('modalBody').innerText = desc;
-            document.getElementById('modalOverlay').classList.add('active');
-        }
+    <div class="map-marker marker-full" style="top: 33%; left: 16.36%;">
+      <div class="marker-badge"><i class="fas fa-parking"></i></div>
+      <div class="marker-content">
+        <span class="marker-title">Parking</span>
+        <span class="marker-desc">One Row only</span>
+      </div>
+    </div>
 
-        function closeInfo(e) {
-            if (e.target.id === 'modalOverlay') {
-                document.getElementById('modalOverlay').classList.remove('active');
-            }
-        }
+    <div class="map-marker marker-full" style="top: 39.56%; left: 11.5%;">
+      <div class="marker-badge"><i class="fas fa-parking"></i></div>
+      <div class="marker-content">
+        <span class="marker-title">Parking</span>
+        <span class="marker-desc">One Row Only</span>
+      </div>
+    </div>
 
-        function forceCloseInfo() {
-            document.getElementById('modalOverlay').classList.remove('active');
-        }
-    </script>
+    <div class="map-marker marker-full" style="top: 79.53%; left: 66.21%;">
+      <div class="marker-badge"><i class="fas fa-fire"></i></div>
+      <div class="marker-content">
+        <span class="marker-title">Fire / S'mores</span>
+        <span class="marker-desc">Bonfire Area</span>
+      </div>
+    </div>
+
+    <div class="map-marker marker-full" style="top: 35.81%; left: 91.79%;">
+      <div class="marker-badge"><i class="fas fa-bolt"></i></div>
+      <div class="marker-content">
+        <span class="marker-title">Fireworks Launch</span>
+        <span class="marker-desc"></span>
+      </div>
+    </div>
+
+    <div class="map-marker marker-icon-only" style="top: 87.44%; left: 96.21%;">
+      <div class="marker-badge"><i class="fas fa-tractor"></i></div>
+      <span class="marker-tooltip">Hayride Pickup</span>
+    </div>
+
+    <div class="map-marker marker-icon-only" style="top: 85.15%; left: 85.07%;">
+      <div class="marker-badge"><i class="fas fa-chess-rook"></i></div>
+      <span class="marker-tooltip">Bounce Houses</span>
+    </div>
+
+    <div class="map-marker marker-full" style="top: 97.02%; left: 73.64%;">
+      <div class="marker-badge"><i class="fas fa-seedling"></i></div>
+      <div class="marker-content">
+        <span class="marker-title">Pumpkins</span>
+        <span class="marker-desc"></span>
+      </div>
+    </div>
+
+    <div class="map-marker marker-icon-only" style="top: 43.83%; left: 76.93%;">
+      <div class="marker-badge"><i class="fas fa-football-ball"></i></div>
+      <span class="marker-tooltip">Sports</span>
+    </div>
+
+    <div class="map-marker marker-full" style="top: 72.14%; left: 86.07%;">
+      <div class="marker-badge"><i class="fas fa-football-ball"></i></div>
+      <div class="marker-content">
+        <span class="marker-title">Yard Games</span>
+        <span class="marker-desc"></span>
+      </div>
+    </div>
+
+    <div class="map-marker marker-icon-only" style="top: 79.32%; left: 96.21%;">
+      <div class="marker-badge"><i class="fas fa-utensils"></i></div>
+      <span class="marker-tooltip">Food</span>
+    </div>
+
+    <div class="map-marker marker-icon-only" style="top: 61.11%; left: 88.21%;">
+      <div class="marker-badge"><i class="fas fa-restroom"></i></div>
+      <span class="marker-tooltip">Restrooms</span>
+    </div>
+
+    <div class="map-marker marker-icon-only" style="top: 56.42%; left: 79.93%;">
+      <div class="marker-badge"><i class="fas fa-music"></i></div>
+      <span class="marker-tooltip">Live Music</span>
+    </div>
+
+    <div class="map-marker marker-icon-only" style="top: 68.39%; left: 79.93%;">
+      <div class="marker-badge"><i class="fas fa-fire"></i></div>
+      <span class="marker-tooltip">New Location</span>
+    </div>
+
+  </div>
+
+  <script>
+    // Tap support for mobile icon tooltips
+    document.querySelectorAll('.marker-icon-only').forEach(marker => {
+      marker.addEventListener('click', (e) => {
+        e.stopPropagation();
+        document.querySelectorAll('.marker-icon-only').forEach(m => m.classList.remove('active'));
+        marker.classList.add('active');
+      });
+    });
+    document.addEventListener('click', () => {
+      document.querySelectorAll('.marker-icon-only').forEach(m => m.classList.remove('active'));
+    });
+  </script>
+
 </body>
 </html>
